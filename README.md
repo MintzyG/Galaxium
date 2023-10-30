@@ -12,3 +12,5 @@
 - Kitty
 ## App runner:
 - Wofi
+## Shell:
+- Bash
