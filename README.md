@@ -14,3 +14,5 @@
 - Wofi
 ## Shell:
 - Bash
+## Editor:
+- Neovim
