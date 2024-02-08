@@ -42,6 +42,8 @@
     LC_TIME = "pt_BR.UTF-8";
   };
 
+  programs.hyprland.enable = true;
+
   # Configure keymap in X11
   services.xserver = {
     layout = "br";
@@ -58,7 +60,16 @@
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [];
   };
-
+  
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    # If you want to use JACK applications, uncomment this
+    #jack.enable = true;
+  };
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
@@ -70,7 +81,11 @@
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
     home-manager
+    firefox
+    neovim
+    kitty
     git
+    gh
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
