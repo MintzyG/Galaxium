@@ -84,6 +84,7 @@
     firefox
     neovim
     kitty
+    wofi
     git
     gh
   ];
