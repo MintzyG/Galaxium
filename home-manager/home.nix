@@ -6,6 +6,7 @@
   
   imports = [ 
     ./kitty.nix 
+    ./hyprland.nix
   ];
 
   home.stateVersion = "23.11";
