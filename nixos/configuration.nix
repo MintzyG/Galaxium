@@ -42,6 +42,7 @@
     LC_TIME = "pt_BR.UTF-8";
   };
 
+  programs.fish.enable = true;
   programs.hyprland.enable = true;
 
   # Configure keymap in X11
@@ -59,6 +60,7 @@
     description = "Sophia";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [];
+    shell = pkgs.fish;
   };
   
   security.rtkit.enable = true;
