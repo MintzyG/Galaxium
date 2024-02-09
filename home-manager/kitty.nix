@@ -6,6 +6,7 @@
     settings = {
       disable_ligatures = "never";
       background_opacity = "0.6";
+      confirm_os_window_close = 0;
 
       # Font
       font_family = "JetBrains Mono";

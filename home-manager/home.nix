@@ -4,7 +4,9 @@
   home.username = "sophia";
   home.homeDirectory = "/home/sophia/";
   
-  imports = [ ./kitty.nix ];
+  imports = [ 
+    ./kitty.nix 
+  ];
 
   home.stateVersion = "23.11";
   programs.home-manager.enable = true;
