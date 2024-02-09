@@ -83,11 +83,13 @@
     home-manager
     firefox
     neovim
-    kitty
     wofi
+    swww
     git
     gh
   ];
+
+  fonts.packages = with pkgs; [ jetbrains-mono ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
