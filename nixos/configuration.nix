@@ -92,7 +92,11 @@
     gh
   ];
 
-  fonts.packages = with pkgs; [ jetbrains-mono ];
+  fonts.packages = with pkgs; [ 
+    jetbrains-mono
+    noto-fonts-emoji
+    nerdfonts
+  ];
 
   hardware.opengl.enable = true;
   # Some programs need SUID wrappers, can be configured further or are
