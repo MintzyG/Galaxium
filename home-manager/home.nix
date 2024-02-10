@@ -5,6 +5,7 @@
   home.homeDirectory = "/home/sophia/";
   
   imports = [ 
+    ./apps.nix
     ./kitty.nix 
     ./hyprland.nix
   ];
