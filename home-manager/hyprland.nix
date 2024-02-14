@@ -125,6 +125,7 @@
 	"$mainMod SHIFT, S, movetoworkspace, special:magic"
 	"$mainMod, mouse_down, workspace, e+1"
 	"$mainMod, mouse_up, workspace, e-1"
+	", Print, exec, grim -g \"$(slurp -d)\" - | wl-copy -t image/png"
       ];
 
       bindm = [
