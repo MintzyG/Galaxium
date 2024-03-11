@@ -18,7 +18,7 @@ in {
 	initrd.kernelModules = [ "nvidia_modeset" ];
   };
 
-  boot.blacklistedKernelModules = [ "nouveau" ];
+  #boot.blacklistedKernelModules = [ "nouveau" ];
 
   systemd.services.systemd-udev-trigger.restartIfChanged = false;
 
@@ -32,12 +32,12 @@ in {
  
   hardware.nvidia = {
 
-	package = config.boot.kernelPackages.nvidiaPackages.stable;
+	package = config.boot.kernelPackages.nvidiaPackages.production;
 
 	modesetting.enable = true;
 
 	powerManagement = {
-  	enable = true;
+  	enable = false;
   	finegrained = false;
 	};
 
@@ -45,15 +45,15 @@ in {
 
 	nvidiaSettings = true;
 
-	#prime = {
-  	#offload = {
-  	#  enable = true;
-  	#  enableOffloadCmd = true;
-  	#};
-  	#sync.enable = true;
-  	#intelBusId = "PCI:0:2:0";
-  	#nvidiaBusId = "PCI:1:0:0";
-	#};
+	prime = {
+  	  offload = {
+  	    enable = true;
+  	    enableOffloadCmd = true;
+  	  };
+  	sync.enable = false;
+  	intelBusId = "PCI:0:2:0";
+  	nvidiaBusId = "PCI:1:0:0";
+	};
  
   };
 

@@ -133,7 +133,7 @@
 	"$mainMod, mouse:273, resizewindow"
       ];
       
-      exec-once = "swww init";
+      exec-once = "swww init && swww img ~/Downloads/uwp3666695.gif";
     };
 
     extraConfig = ''
