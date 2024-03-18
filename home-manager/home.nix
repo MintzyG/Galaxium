@@ -6,7 +6,9 @@
   
   imports = [ 
     ./apps.nix
+    ./fish.nix
     ./kitty.nix 
+    ./starship.nix
     ./hyprland.nix
   ];
 

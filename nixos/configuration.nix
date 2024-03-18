@@ -3,8 +3,9 @@
 {
   imports =
     [
-      ./hardware-configuration.nix
-      ./nvidia.nix
+    ./hardware-configuration.nix
+    ./environment.nix
+    ./nvidia.nix
 	  ./sound.nix
 	  ./video.nix
 	  ./games.nix
