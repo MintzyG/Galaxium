@@ -94,6 +94,7 @@
         "$mainMod, M, exit,"
         "$mainMod, E, exec, dolphin"
         "$mainMod, V, togglefloating,"
+        "$mainMod, F, fullscreen,"
         "$mainMod, R, exec, wofi --show drun"
         "$mainMod, P, pseudo,"
         "$mainMod, J, togglesplit,"
@@ -133,7 +134,6 @@
 	"$mainMod, mouse:273, resizewindow"
       ];
       
-      exec-once = "swww init && swww img ~/Downloads/uwp3666695.gif";
     };
 
     extraConfig = ''

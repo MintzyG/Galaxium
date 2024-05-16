@@ -5,6 +5,7 @@
   home.homeDirectory = "/home/sophia/";
   
   imports = [ 
+    ./git.nix
     ./apps.nix
     ./fish.nix
     ./kitty.nix 
