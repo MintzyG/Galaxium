@@ -1,33 +1,20 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [
-    ./hardware-configuration.nix
-    ./environment.nix
-    ./nvidia.nix
-	  ./sound.nix
-	  ./video.nix
-	  ./games.nix
-	  ./user.nix
-	  ./apps.nix
-    ];
+  imports = [ ./imports.nix ];
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  nixpkgs = {
+    config = {
+      allowUnfree = true;
+      permittedInsecurePackages = [ "electron-25.9.0" ];
+    };
+  };
 
-  networking.hostName = "nixos"; # Define your hostname.
-  networking.networkmanager.enable = true;
-
-  nixpkgs.config.allowUnfree = true;
-  nix.settings.experimental-features = [ "nix-command"  "flakes" ];
-  nixpkgs.config.permittedInsecurePackages = [ "electron-25.9.0" ];
-  
-  fonts.packages = with pkgs; [ 
-    jetbrains-mono
-    noto-fonts-emoji
-    nerdfonts
-  ];
-
-  system.stateVersion = "23.11"; # Did you read the comment?
+  nix = {
+    settings = {
+      experimental-features = [ "nix-command"  "flakes" ];
+      substituters = ["https://nix-gaming.cachix.org"];
+      trusted-public-keys = ["nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="];
+    };
+  };
 }

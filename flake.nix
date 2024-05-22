@@ -7,33 +7,24 @@
       url = "github:nix-community/home-manager/release-23.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-gaming.url = "github:fufexan/nix-gaming";
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }: 
-  let
-    system = "x86_64-linux";
-    pkgs = import nixpkgs {
-      inherit system;
-      config = {
-	allowUnfree = true;
-      };
+  outputs = { self, nixpkgs, home-manager, ... }@inputs: 
+  {
+    nixosConfigurations.galaxium = nixpkgs.lib.nixosSystem{
+      specialArgs = { inherit inputs; };
+      modules = [
+        ./nixos/configuration.nix
+      ]; 
     };
 
-  in
-  {
-    nixosConfigurations = {
-      galaxium = nixpkgs.lib.nixosSystem{
-        specialArgs = { inherit system; };
-        modules = [
-          ./nixos/configuration.nix
-        ];
+    homeConfigurations.sophia = home-manager.lib.homeManagerConfiguration {
+      pkgs = import nixpkgs {
+        system = "x86_64-linux";
+        config.allowUnfree = true;
       };
-    };
-    homeConfigurations = {
-      sophia = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        modules = [ ./home-manager/home.nix ];
-      };
+      modules = [ ./home-manager/home.nix ];
     };
   };
 }
