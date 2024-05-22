@@ -6,6 +6,7 @@
   
   imports = [ 
     ./git.nix
+    ./dev.nix
     ./apps.nix
     ./fish.nix
     ./kitty.nix 

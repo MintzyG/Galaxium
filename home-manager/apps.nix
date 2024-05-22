@@ -10,6 +10,12 @@
   };
 
   home.packages = with pkgs; [
+    appimage-run
+    chromium
+    discord-canary
+    qimgv
     ranger
+    spotify
+    zathura
   ];
 }

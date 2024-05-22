@@ -1,12 +1,24 @@
-{ lib, config, packages, ... }:
+{ lib, config, pkgs, ... }:
 {
+  home.packages = with pkgs; [
+    wl-clipboard
+    wofi
+    slurp
+    grim
+    swww
+    xwaylandvideobridge
+  ];
+
   wayland.windowManager.hyprland = {
     enable = true;
     enableNvidiaPatches = true;
     xwayland.enable = true;
 
     settings = {
-      monitor = "eDP-1, 1920x1080, 0x0, 1";
+      monitor = [
+        "eDP-1, 1920x1080, 0x0, 1"
+        "eDP-2, preferred, auto, 1"
+      ];
 
       env = "XCURSOR_SIZE, 24";
 
@@ -91,7 +103,6 @@
       bind = [
 	"$mainMod, Q, exec, kitty"
         "$mainMod, C, killactive,"
-        "$mainMod, M, exit,"
         "$mainMod, E, exec, dolphin"
         "$mainMod, V, togglefloating,"
         "$mainMod, F, fullscreen,"
@@ -112,6 +123,7 @@
         "$mainMod, 8, workspace, 8"
         "$mainMod, 9, workspace, 9"
         "$mainMod, 0, workspace, 10"
+        "$mainMod SHIFT, M, exit,"
         "$mainMod SHIFT, 1, movetoworkspace, 1"
         "$mainMod SHIFT, 2, movetoworkspace, 2"
         "$mainMod SHIFT, 3, movetoworkspace, 3"
