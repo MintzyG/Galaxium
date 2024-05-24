@@ -12,6 +12,7 @@
   home.packages = with pkgs; [
     appimage-run
     chromium
+    firefox
     discord-canary
     qimgv
     ranger
