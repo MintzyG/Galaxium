@@ -1,10 +1,13 @@
 { pkgs, ... }:
+let
+  scripts = "~/galaxium/home-manager/scripts/";
+in
 {
   home.packages = with pkgs; [
     grim
     slurp
+    swappy
     swww
-    wl-clipboard
     wofi
     xwaylandvideobridge
   ];
@@ -137,7 +140,7 @@
         "$mainMod SHIFT, S, movetoworkspace, special:magic"
         "$mainMod, mouse_down, workspace, e+1"
         "$mainMod, mouse_up, workspace, e-1"
-        ", Print, exec, grim -g \"$(slurp -d)\" - | wl-copy -t image/png"
+        ", Print, exec, ${scripts}print.sh"
       ];
 
       bindm = [
@@ -145,13 +148,7 @@
         "$mainMod, mouse:273, resizewindow"
       ];
 
-      exec-once = "swww-daemon && sleep 2 && ~/galaxium/home-manager/./wallpaper.sh";
+      exec-once = "swww-daemon && sleep 2 && ${scripts}./wallpaper.sh";
     };
-
-    extraConfig = ''
-      device:epic-mouse-v1 {
-        sensitivity = -0.5
-      }
-    '';
   };
 }
