@@ -1,22 +1,37 @@
 { pkgs, ... }:
 let
   scripts = "~/galaxium/home-manager/scripts/";
+  print = import ./scripts/print.nix { inherit pkgs; };
+  Wallpaper = import ./scripts/wallpaper.nix { inherit pkgs; };
 in
 {
-  home.packages = with pkgs; [
+  home.packages = [
+    print
+    Wallpaper
+  ]
+
+    ++
+
+  (with pkgs; [
     grim
     slurp
     swappy
     swww
     wofi
     xwaylandvideobridge
-  ];
+  ]);
 
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;
 
     settings = {
+
+      debug = {
+        disable_logs = false;
+        enable_stdout_logs = true;
+      };
+
       monitor = [
         "eDP-1, 1920x1080, 0x0, 1"
         "eDP-2, preferred, auto, 1"
@@ -37,7 +52,7 @@ in
           natural_scroll = "no";
         };
 
-# Goes from -1.0 to 1.0
+        # Goes from -1.0 to 1.0
         sensitivity = 0;
       };
 
@@ -140,8 +155,8 @@ in
         "$mainMod SHIFT, S, movetoworkspace, special:magic"
         "$mainMod, mouse_down, workspace, e+1"
         "$mainMod, mouse_up, workspace, e-1"
-        ", Print, exec, ${scripts}print.sh"
-        "$mainMod SHIFT, F1, exec, ${scripts}wallpaper.sh"
+        ", Print, exec, ${print}/bin/print"
+        "$mainMod SHIFT, F1, exec, ${Wallpaper}/bin/Wallpaper"
       ];
 
       bindm = [
@@ -149,7 +164,7 @@ in
         "$mainMod, mouse:273, resizewindow"
       ];
 
-      exec-once = "swww-daemon && sleep 2 && ${scripts}./wallpaper.sh";
+      exec-once = "swww-daemon && ${Wallpaper}/bin/Wallpaper";
     };
   };
 }
