@@ -1,19 +1,19 @@
-{ lib, config, pkgs, ... }:
+{ pkgs, ... }:
 {
   programs.btop.enable = true;
 
   nixpkgs = {
     config = {
       allowUnfree = true;
-      allowUnfreePredicate = (_: true);
+      allowUnfreePredicate = _: true;
     };
   };
 
   home.packages = with pkgs; [
     appimage-run
     chromium
-    firefox
     discord-canary
+    firefox
     qimgv
     ranger
     spotify

@@ -1,4 +1,4 @@
-{ lib, config, pkgs, inputs, ... }:
+{ pkgs, ... }:
 
 {
   programs.steam = {
@@ -8,14 +8,14 @@
   };
 
   environment.systemPackages = with pkgs; [
-    inputs.nix-gaming.packages.${pkgs.system}.osu-stable
-    heroic
-    wine
-    winetricks
-    lutris
-    prismlauncher
     gamemode
+    heroic
+    lutris
+    osu-lazer-bin
+    prismlauncher
     protontricks
     protonup-qt
+    wine
+    winetricks
   ];
 }

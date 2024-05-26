@@ -19,45 +19,46 @@ in {
   boot = {
     extraModprobeConfig = "options nvidia-drm modeset=1";
     initrd.kernelModules = [ "nvidia_modeset" ];
+    # blacklistedKernelModules = [ "nouveau" ];
   };
 
-  # boot.blacklistedKernelModules = [ "nouveau" ];
 
   systemd.services.systemd-udev-trigger.restartIfChanged = false;
 
-  hardware.opengl = {
-    enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
-  };
-
-  hardware.nvidiaOptimus.disable = false;
-
-  hardware.nvidia = {
-
-    package = config.boot.kernelPackages.nvidiaPackages.production;
-
-    modesetting.enable = true;
-
-    powerManagement = {
-      enable = false;
-      finegrained = false;
+  hardware = {
+    opengl = {
+      enable = true;
+      driSupport = true;
+      driSupport32Bit = true;
     };
 
-    open = true;
+    nvidiaOptimus.disable = false;
 
-    nvidiaSettings = true;
+    nvidia = {
+      package = config.boot.kernelPackages.nvidiaPackages.production;
 
-    prime = {
-      offload = {
-	enable = true;
-	enableOffloadCmd = true;
+      modesetting.enable = true;
+
+      powerManagement = {
+        enable = false;
+        finegrained = false;
       };
-      sync.enable = false;
-      intelBusId = "PCI:0:2:0";
-      nvidiaBusId = "PCI:1:0:0";
-    };
 
+      open = true;
+
+      nvidiaSettings = true;
+
+      prime = {
+        offload = {
+          enable = true;
+          enableOffloadCmd = true;
+        };
+        sync.enable = false;
+        intelBusId = "PCI:0:2:0";
+        nvidiaBusId = "PCI:1:0:0";
+      };
+
+    };
   };
 
 }

@@ -1,16 +1,16 @@
-{ lib, config, pkgs, ... }:
+{ ... }:
 
 {
   imports = [
-    ./hardware-configuration.nix
-    ./environment.nix
+    ./apps.nix
     ./battery.nix
-    ./system.nix
+    ./environment.nix
+    ./games.nix
+    ./hardware-configuration.nix
     ./nvidia.nix
     ./sound.nix
-    ./video.nix
-    ./games.nix
+    ./system.nix
     ./user.nix
-    ./apps.nix
+    ./video.nix
   ];
 }

@@ -1,9 +1,11 @@
-{ lib, config, pkgs, inputs, ... }:
+{ pkgs, inputs, ... }:
+
 {
   home.packages = with pkgs; [
     # gnat
     # rustup
     ciao
+    elixir
     freeglut
     gcc
     gdb
@@ -11,9 +13,8 @@
     gh
     git
     go
-    jdk21
-    # neovim
     inputs.nixvim.packages."x86_64-linux".default
+    jdk21
     python3
     python311Packages.pygments
     racket

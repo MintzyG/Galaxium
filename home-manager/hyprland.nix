@@ -1,17 +1,16 @@
-{ lib, config, pkgs, ... }:
+{ pkgs, ... }:
 {
   home.packages = with pkgs; [
+    grim
+    slurp
+    swww
     wl-clipboard
     wofi
-    slurp
-    grim
-    swww
     xwaylandvideobridge
   ];
 
   wayland.windowManager.hyprland = {
     enable = true;
-    enableNvidiaPatches = true;
     xwayland.enable = true;
 
     settings = {
@@ -24,84 +23,84 @@
 
       input = {
         kb_layout = "br";
-	kb_variant = "abnt2";
-	kb_model = "";
-	kb_options = "";
-	kb_rules = "";
+        kb_variant = "abnt2";
+        kb_model = "";
+        kb_options = "";
+        kb_rules = "";
 
-	follow_mouse = 1;
+        follow_mouse = 1;
 
-	touchpad = {
+        touchpad = {
           natural_scroll = "no";
-	};
+        };
 
-	# Goes from -1.0 to 1.0
-	sensitivity = 0;
+# Goes from -1.0 to 1.0
+        sensitivity = 0;
       };
 
       general = {
-	gaps_in = 5;
-	gaps_out = 20;
-	border_size = 2;
-	"col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
-	"col.inactive_border" = "rgba(595959aa)";
+        gaps_in = 5;
+        gaps_out = 20;
+        border_size = 2;
+        "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
+        "col.inactive_border" = "rgba(595959aa)";
 
-	layout = "dwindle";
+        layout = "dwindle";
 
-	allow_tearing = false;
+        allow_tearing = false;
       };
 
       decoration = {
-	rounding = 10;
+        rounding = 10;
 
-	blur = {
-	  enabled = true;
-	  size = 3;
-	  passes = 1;
-	};
+        blur = {
+          enabled = true;
+          size = 3;
+          passes = 1;
+        };
 
-	drop_shadow = "yes";
-	shadow_range = 4;
-	shadow_render_power = 3;
-	"col.shadow" = "rgba(1a1a1aee)";
+        drop_shadow = "yes";
+        shadow_range = 4;
+        shadow_render_power = 3;
+        "col.shadow" = "rgba(1a1a1aee)";
       };
 
       animations = {
-	enabled = "yes";
-      
-	bezier = "myBezier, 0.05, 0.9, 0.1, 1.05";
+        enabled = "yes";
 
-	animation = [
-	  "windows, 1, 7, myBezier"
-	  "windowsOut, 1, 7, default, popin 80%"
-	  "border, 1, 10, default"
-	  "borderangle, 1, 8, default"
-	  "fade, 1, 7, default"
-	  "workspaces, 1, 6, default"
-	];
+        bezier = "myBezier, 0.05, 0.9, 0.1, 1.05";
+
+        animation = [
+          "windows, 1, 7, myBezier"
+          "windowsOut, 1, 7, default, popin 80%"
+          "border, 1, 10, default"
+          "borderangle, 1, 8, default"
+          "fade, 1, 7, default"
+          "workspaces, 1, 6, default"
+        ];
       };
 
       dwindle = {
-	pseudotile = "yes";
-	preserve_split = "yes";
+        pseudotile = "yes";
+        preserve_split = "yes";
       };
 
       master = {
-	new_is_master = true;
+        new_is_master = true;
       };
 
       gestures = {
-	workspace_swipe = "off";
+        workspace_swipe = "off";
       };
 
       misc = {
-	force_default_wallpaper = "-1";
+        force_default_wallpaper = "-1";
       };
 
       "$mainMod" = "SUPER";
 
       bind = [
-	"$mainMod, Q, exec, kitty"
+        "$mainMod, Q, exec, kitty"
         "$mainMod, C, killactive,"
         "$mainMod, E, exec, dolphin"
         "$mainMod, V, togglefloating,"
@@ -134,23 +133,24 @@
         "$mainMod SHIFT, 8, movetoworkspace, 8"
         "$mainMod SHIFT, 9, movetoworkspace, 9"
         "$mainMod SHIFT, 0, movetoworkspace, 10"
-	"$mainMod, S, togglespecialworkspace, magic"
-	"$mainMod SHIFT, S, movetoworkspace, special:magic"
-	"$mainMod, mouse_down, workspace, e+1"
-	"$mainMod, mouse_up, workspace, e-1"
-	", Print, exec, grim -g \"$(slurp -d)\" - | wl-copy -t image/png"
+        "$mainMod, S, togglespecialworkspace, magic"
+        "$mainMod SHIFT, S, movetoworkspace, special:magic"
+        "$mainMod, mouse_down, workspace, e+1"
+        "$mainMod, mouse_up, workspace, e-1"
+        ", Print, exec, grim -g \"$(slurp -d)\" - | wl-copy -t image/png"
       ];
 
       bindm = [
-	"$mainMod, mouse:272, movewindow"
-	"$mainMod, mouse:273, resizewindow"
+        "$mainMod, mouse:272, movewindow"
+        "$mainMod, mouse:273, resizewindow"
       ];
-      
+
+      exec-once = "swww-daemon && sleep 2 && ~/galaxium/home-manager/./wallpaper.sh";
     };
 
     extraConfig = ''
       device:epic-mouse-v1 {
-	sensitivity = -0.5
+        sensitivity = -0.5
       }
     '';
   };

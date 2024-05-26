@@ -1,33 +1,29 @@
-{ lib, config, pkgs, inputs, ... }:
+{ ... }:
 
 {
-  home.username = "sophia";
-  home.homeDirectory = "/home/sophia/";
-  
-  imports = [ 
-    ./git.nix
-    ./dev.nix
-    ./apps.nix
-    ./fish.nix
-    ./kitty.nix 
-    ./starship.nix
-    ./hyprland.nix
-  ];
-
-  home.stateVersion = "23.11";
   programs.home-manager.enable = true;
-  
-  nixpkgs = {
-    config = {
-      allowUnfree = true;
-      allowUnfreePredicate = _: true;
+
+  home = { 
+    stateVersion = "23.11";
+
+    username = "sophia";
+    homeDirectory = "/home/sophia/";
+    
+    sessionVariables = {
+      EDITOR = "nvim";
+      BROWSER = "chromium";
+      TERMINAL = "kitty";
     };
   };
 
-  home.sessionVariables = {
-    EDITOR = "nvim";
-    BROWSER = "chromium";
-    TERMINAL = "kitty";
-  };
-
+  imports = [ 
+    ./apps.nix
+    ./dev.nix
+    ./fish.nix
+    ./git.nix
+    ./hyprland.nix
+    ./kitty.nix 
+    ./ranger.nix
+    ./starship.nix
+  ];
 }

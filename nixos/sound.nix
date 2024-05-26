@@ -1,11 +1,11 @@
-{ lib, config, pkgs, ... }: 
+{ pkgs, ... }: 
 
 {
   environment.systemPackages = with pkgs; [
-    rnnoise
-    pavucontrol
     noisetorch
+    pavucontrol
   ];
+
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;

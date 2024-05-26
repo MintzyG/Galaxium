@@ -1,11 +1,17 @@
-{ lib, config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot = {
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
+  };
 
-  networking.hostName = "galaxium";
-  networking.networkmanager.enable = true;
+  networking = {
+    hostName = "galaxium";
+    networkmanager.enable = true;
+  };
 
   environment.systemPackages = with pkgs; [
     brightnessctl

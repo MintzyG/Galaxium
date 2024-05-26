@@ -2,32 +2,41 @@
   description = "System flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     home-manager = {
-      url = "github:nix-community/home-manager/release-23.11";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-gaming.url = "github:fufexan/nix-gaming";
     nixvim.url = "github:MintzyG/Celestium";
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs: 
+  outputs = { nixpkgs, home-manager, ... }@inputs: 
+  let
+    system = "x86_64-linux";
+    pkgs = import nixpkgs {
+      inherit system;
+      config.allowUnfree = true;
+    };
+  in
   {
-    nixosConfigurations.galaxium = nixpkgs.lib.nixosSystem{
-      specialArgs = { inherit inputs; };
-      modules = [
-        ./nixos/configuration.nix
-      ]; 
+    nixosConfigurations = {
+      galaxium = nixpkgs.lib.nixosSystem {
+        inherit system;
+        modules = [ ./nixos/configuration.nix];
+        specialArgs = { 
+          inherit inputs; 
+        };
+      };
     };
 
-    homeConfigurations.sophia = home-manager.lib.homeManagerConfiguration {
-      extraSpecialArgs = { inherit inputs; };
-      pkgs = import nixpkgs {
-        system = "x86_64-linux";
-        config.allowUnfree = true;
+    homeConfigurations = { 
+      sophia = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        modules = [ ./home-manager/home.nix ];
+        extraSpecialArgs = { 
+          inherit inputs; 
+        };
       };
-      modules = [ ./home-manager/home.nix ];
     };
   };
 }
