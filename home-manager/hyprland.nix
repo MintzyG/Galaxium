@@ -141,6 +141,7 @@ in
         "$mainMod, mouse_down, workspace, e+1"
         "$mainMod, mouse_up, workspace, e-1"
         ", Print, exec, ${scripts}print.sh"
+        "$mainMod SHIFT, F1, exec, ${scripts}wallpaper.sh"
       ];
 
       bindm = [
