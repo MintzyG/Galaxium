@@ -4,9 +4,9 @@
   users.users.sophia = {
     isNormalUser = true;
     description = "Sophia";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [];
-    shell = pkgs.fish;
+    extraGroups = [ "networkmanager" "wheel" "libvirtd" ];
+    # packages = with pkgs; [];
+    shell = pkgs.zsh;
   };
 
   time.timeZone = "America/Sao_Paulo";

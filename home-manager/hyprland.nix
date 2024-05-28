@@ -1,6 +1,5 @@
 { pkgs, ... }:
 let
-  scripts = "~/galaxium/home-manager/scripts/";
   print = import ./scripts/print.nix { inherit pkgs; };
   Wallpaper = import ./scripts/wallpaper.nix { inherit pkgs; };
 in

@@ -12,5 +12,6 @@
     ./system.nix
     ./user.nix
     ./video.nix
+    ./virt.nix
   ];
 }

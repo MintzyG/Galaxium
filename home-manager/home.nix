@@ -19,11 +19,14 @@
   imports = [ 
     ./apps.nix
     ./dev.nix
+    ./eza.nix
     ./fish.nix
     ./git.nix
     ./hyprland.nix
     ./kitty.nix 
+    ./otd.nix
     ./ranger.nix
     ./starship.nix
+    ./zsh.nix
   ];
 }

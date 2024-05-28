@@ -11,12 +11,12 @@
 
   home.packages = with pkgs; [
     appimage-run
-    chromium
     discord-canary
     firefox
     qimgv
     ranger
     spotify
+    vesktop
     zathura
   ];
 }

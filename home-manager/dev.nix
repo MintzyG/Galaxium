@@ -5,6 +5,7 @@
     # gnat
     # rustup
     ciao
+    dotnet-sdk_8
     elixir
     freeglut
     gcc

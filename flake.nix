@@ -1,5 +1,5 @@
 {
-  description = "System flake";
+  description = "The eye of the universe";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";

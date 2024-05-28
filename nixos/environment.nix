@@ -14,6 +14,13 @@
     FLAKE = "/home/sophia/galaxium";
   };
 
+  xdg = {
+    enable = true;
+    userDirs = {
+      enable = pkgs.stdenv.isLinux;
+    };
+  };
+
   environment.systemPackages = with pkgs; [
     nh
     nix-output-monitor
