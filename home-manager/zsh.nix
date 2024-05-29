@@ -33,18 +33,22 @@
 
     # this is how you add plugins from oh-my-zsh
     # zinit snippet OMZP::git
-    # source "${pkgs.zsh-nix-shell}/share/zsh-nix-shell/nix-shell.plugin.zsh"
     initExtraBeforeCompInit = ''
+
+    '';
+
+    # zinit cdreplay -q
+    initExtra = ''
+      source "${pkgs.zsh-nix-shell}/share/zsh-nix-shell/nix-shell.plugin.zsh"
       source "${pkgs.zinit}/share/zinit/zinit.zsh"
+
+      autoload -Uz _zinit
 
       zinit light zsh-users/zsh-completions
       zinit light zsh-users/zsh-autosuggestions
       zinit light zdharma-continuum/fast-syntax-highlighting
       zinit light Aloxaf/fzf-tab
-    '';
 
-    # zinit cdreplay -q
-    initExtra = ''
       zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
       zstyle ':completion*:' menu no
       zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza $realpath --color=always'
@@ -53,6 +57,8 @@
       eval "$(fzf --zsh)"
       eval "$(zoxide init --cmd cd zsh)"
     '';
+
+    # If you get a compinit error for missing _zinit run > zinit cclear
   };
 
   home.packages = with pkgs; [

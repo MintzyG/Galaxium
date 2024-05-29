@@ -9,10 +9,13 @@
     elixir
     freeglut
     gcc
+    gccMultiStdenv
     gdb
     geckodriver
     gh
     git
+    glibc
+    gnumake
     go
     inputs.nixvim.packages."x86_64-linux".default
     jdk21

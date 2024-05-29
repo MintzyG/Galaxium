@@ -16,6 +16,13 @@
     };
   };
 
+  xdg = {
+    enable = true;
+    userDirs = {
+      enable = true;
+    };
+  };
+
   imports = [ 
     ./apps.nix
     ./dev.nix
