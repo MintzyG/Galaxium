@@ -1,5 +1,5 @@
 {
-  home.sessionVariables = {
+  environment.sessionVariables = {
     EDITOR = "nvim";
     BROWSER = "firefox";
     TERMINAL = "kitty";

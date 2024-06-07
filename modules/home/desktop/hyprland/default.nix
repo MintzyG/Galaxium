@@ -1,7 +1,7 @@
 { pkgs, ... }:
 let
-  print = import ../../../scripts/print.nix { inherit pkgs; };
-  Wallpaper = import ../../../scripts/wallpaper.nix { inherit pkgs; };
+  print = import ../../../../scripts/print.nix { inherit pkgs; };
+  Wallpaper = import ../../../../scripts/wallpaper.nix { inherit pkgs; };
 in
 {
   home.packages = [

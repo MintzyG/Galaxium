@@ -24,7 +24,7 @@
       galaxium = nixpkgs.lib.nixosSystem {
         inherit system;
         modules = [ 
-          ./nixos/configuration.nix
+          ./modules/nixos
           catppuccin.nixosModules.catppuccin
         ];
         specialArgs = { 
@@ -37,7 +37,7 @@
       sophia = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         modules = [ 
-          ./home-manager
+          ./modules/home
           catppuccin.homeManagerModules.catppuccin
         ];
         extraSpecialArgs = { 

@@ -1,13 +1,12 @@
-{ pkgs, inputs, ... }:
+{ pkgs, ... }:
 
 {
-  home.packages = [
-    inputs.nixvim.packages."x86_64-linux".default
-  ]
+  imports = [
+    ./nvim.nix
+  ];
+      
 
-    ++
-
-  (with pkgs; [
+  home.packages = with pkgs; [
     # gnat
     # rustup
     dotnet-sdk_8
@@ -26,5 +25,5 @@
     rars
     rustc
     vscode
-  ]);
+  ];
 }

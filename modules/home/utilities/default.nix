@@ -4,6 +4,7 @@
   imports = [
     ./bat.nix
     ./eza.nix
+    ./kitty.nix
     ./ranger.nix
     ./yazi.nix
   ];
