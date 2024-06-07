@@ -163,7 +163,7 @@ in
         "$mainMod, mouse:273, resizewindow"
       ];
 
-      exec-once = "swww-daemon && ${Wallpaper}/bin/Wallpaper";
+      exec-once = "${Wallpaper}/bin/Wallpaper";
     };
   };
 }

@@ -8,9 +8,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixvim.url = "github:MintzyG/Celestium";
+    catppuccin.url = "github:catppuccin/nix";
   };
 
-  outputs = { nixpkgs, home-manager, ... }@inputs: 
+  outputs = { nixpkgs, home-manager, catppuccin, ... }@inputs: 
   let
     system = "x86_64-linux";
     pkgs = import nixpkgs {
@@ -22,7 +23,10 @@
     nixosConfigurations = {
       galaxium = nixpkgs.lib.nixosSystem {
         inherit system;
-        modules = [ ./nixos/configuration.nix];
+        modules = [ 
+          ./nixos/configuration.nix
+          catppuccin.nixosModules.catppuccin
+        ];
         specialArgs = { 
           inherit inputs; 
         };
@@ -32,7 +36,10 @@
     homeConfigurations = { 
       sophia = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-        modules = [ ./home-manager/home.nix ];
+        modules = [ 
+          ./home-manager/home.nix 
+          catppuccin.homeManagerModules.catppuccin
+        ];
         extraSpecialArgs = { 
           inherit inputs; 
         };

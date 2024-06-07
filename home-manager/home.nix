@@ -1,4 +1,4 @@
-{ ... }:
+{ inputs, ... }:
 
 {
   programs.home-manager.enable = true;
@@ -23,6 +23,11 @@
     };
   };
 
+  catppuccin = {
+    flavor = "macchiato";
+    accent = "mauve";
+  };
+
   imports = [ 
     ./apps.nix
     ./bat.nix
@@ -36,6 +41,8 @@
     ./otd.nix
     ./ranger.nix
     ./starship.nix
+    ./swww.nix
+    ./yazi.nix
     ./zsh.nix
   ];
 }
