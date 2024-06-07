@@ -32,6 +32,7 @@
     ./git.nix
     ./hyprland.nix
     ./kitty.nix 
+    ./lazygit.nix
     ./otd.nix
     ./ranger.nix
     ./starship.nix
