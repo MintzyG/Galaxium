@@ -12,6 +12,7 @@
   home.packages = with pkgs; [
     appimage-run
     firefox
+    ncdu
     qimgv
     ranger
     spotify

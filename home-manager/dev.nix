@@ -26,6 +26,7 @@
     rustc
     scilab-bin
     swiProlog
+    tldr
     vscode
   ];
 }

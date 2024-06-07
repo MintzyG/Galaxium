@@ -25,9 +25,11 @@
 
   imports = [ 
     ./apps.nix
+    ./bat.nix
     ./dev.nix
     ./eza.nix
     ./fish.nix
+    ./fzf.nix
     ./git.nix
     ./hyprland.nix
     ./kitty.nix 

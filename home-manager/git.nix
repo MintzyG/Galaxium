@@ -11,5 +11,10 @@ _:
       github.user = "MintzyG";
       init.defaultBranch = "main";
     };
+
+    difftastic = {
+      enable = true;
+      display = "side-by-side-show-both";
+    };
   };
 }

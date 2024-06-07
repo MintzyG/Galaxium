@@ -13,7 +13,7 @@
       size = 10000;
       extended = true;
       ignoreAllDups = true;
-      
+
       ignoreDups = true;
       ignoreSpace = true;
       share = true;
@@ -22,49 +22,45 @@
     historySubstringSearch.enable = true;
 
     shellAliases = {
+      cat = "bat";
       ls = "eza --icons --color=always --git";
       r = "ranger";
     };
 
-    # Disabled beacause I'm using plugins for these
     enableCompletion = true;
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
 
-    # this is how you add plugins from oh-my-zsh
-    # zinit snippet OMZP::git
-    initExtraBeforeCompInit = ''
-
-    '';
-
-    # zinit cdreplay -q
     initExtra = ''
       source "${pkgs.zsh-nix-shell}/share/zsh-nix-shell/nix-shell.plugin.zsh"
-      source "${pkgs.zinit}/share/zinit/zinit.zsh"
-
-      autoload -Uz _zinit
-
-      zinit light zsh-users/zsh-completions
-      zinit light zsh-users/zsh-autosuggestions
-      zinit light zdharma-continuum/fast-syntax-highlighting
-      zinit light Aloxaf/fzf-tab
-
-      zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
-      zstyle ':completion*:' menu no
-      zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza $realpath --color=always'
-      zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'eza $realpath --color=always'
 
       eval "$(fzf --zsh)"
-      eval "$(zoxide init --cmd cd zsh)"
-    '';
 
-    # If you get a compinit error for missing _zinit run > zinit cclear
+      _fzf_compgen_path() {
+        fd --hidden --exclude .git . "$1"
+      }
+
+      _fzf_compgen_dir() {
+        fd --type=d --hidden --exclude .git . "$1"
+      }
+
+      _fzf_comprun() {
+        local command=$1
+        shift
+
+        case "$command" in
+          cd)           fzf --preview 'eza --tree --color=always {} | head -200' "$@" ;;
+          export|unset) fzf --preview "eval 'echo ''${}'"         "$@" ;;
+          ssh)          fzf --preview 'dig {}'                   "$@" ;;
+          *)            fzf --preview "$show_file_or_dir_preview" "$@" ;;
+        esac
+      }
+    '';
   };
 
   home.packages = with pkgs; [
+    fd
     fzf
-    zinit
-    zoxide
     zsh-nix-shell
   ];
 }
