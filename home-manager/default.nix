@@ -1,5 +1,3 @@
-{ inputs, ... }:
-
 {
   programs.home-manager.enable = true;
 
@@ -33,7 +31,6 @@
     ./bat.nix
     ./dev.nix
     ./eza.nix
-    ./fish.nix
     ./git.nix
     ./hyprland.nix
     ./kitty.nix 

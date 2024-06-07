@@ -1,7 +1,11 @@
 { pkgs, inputs, ... }:
 
 {
-  home.packages = with pkgs; [
+  home.packages = [
+    inputs.nixvim.packages."x86_64-linux".default
+  ]
+    ++
+  (with pkgs; [
     # gnat
     # rustup
     ciao
@@ -17,7 +21,6 @@
     glibc
     gnumake
     go
-    inputs.nixvim.packages."x86_64-linux".default
     jdk21
     python3
     python311Packages.pygments
@@ -28,5 +31,5 @@
     swiProlog
     tldr
     vscode
-  ];
+  ]);
 }

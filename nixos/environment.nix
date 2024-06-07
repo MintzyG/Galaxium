@@ -9,12 +9,10 @@
 
   environment.sessionVariables = {
     EDITOR = "nvim";
-    BROWSER = "chromium";
+    BROWSER = "firefox";
     TERMINAL = "kitty";
     FLAKE = "/home/sophia/galaxium";
   };
-
-
 
   environment.systemPackages = with pkgs; [
     nh
