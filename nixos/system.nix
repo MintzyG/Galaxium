@@ -14,9 +14,7 @@
   };
 
   environment.systemPackages = with pkgs; [
-    brightnessctl
     home-manager
-    nix-index
   ];
 
   hardware.opentabletdriver.enable = true;

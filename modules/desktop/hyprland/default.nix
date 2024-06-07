@@ -1,24 +1,13 @@
 { pkgs, ... }:
 let
-  print = import ./scripts/print.nix { inherit pkgs; };
-  Wallpaper = import ./scripts/wallpaper.nix { inherit pkgs; };
+  print = import ../../../scripts/print.nix { inherit pkgs; };
+  Wallpaper = import ../../../scripts/wallpaper.nix { inherit pkgs; };
 in
 {
   home.packages = [
     print
     Wallpaper
-  ]
-
-    ++
-
-  (with pkgs; [
-    grim
-    slurp
-    swappy
-    swww
-    wofi
-    xwaylandvideobridge
-  ]);
+  ];
 
   wayland.windowManager.hyprland = {
     enable = true;

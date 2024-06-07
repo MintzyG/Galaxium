@@ -6,12 +6,6 @@
 
     username = "sophia";
     homeDirectory = "/home/sophia/";
-    
-    sessionVariables = {
-      EDITOR = "nvim";
-      BROWSER = "chromium";
-      TERMINAL = "kitty";
-    };
   };
 
   xdg = {
@@ -21,25 +15,27 @@
     };
   };
 
+  nixpkgs = {
+    config = {
+      allowUnfree = true;
+      allowUnfreePredicate = _: true;
+    };
+  };
+
   catppuccin = {
     flavor = "macchiato";
     accent = "mauve";
   };
 
   imports = [ 
+    ../modules/desktop/hyprland
+    ../modules/git
+    ../modules/kitty.nix 
+    ../modules/services
+    ../modules/shell
+    ../modules/utilities
     ./apps.nix
-    ./bat.nix
     ./dev.nix
-    ./eza.nix
-    ./git.nix
-    ./hyprland.nix
-    ./kitty.nix 
-    ./lazygit.nix
-    ./otd.nix
-    ./ranger.nix
-    ./starship.nix
-    ./swww.nix
-    ./yazi.nix
-    ./zsh.nix
+    ./home_variables.nix
   ];
 }

@@ -4,11 +4,12 @@
   home.packages = [
     inputs.nixvim.packages."x86_64-linux".default
   ]
+
     ++
+
   (with pkgs; [
     # gnat
     # rustup
-    ciao
     dotnet-sdk_8
     elixir
     freeglut
@@ -16,20 +17,14 @@
     gccMultiStdenv
     gdb
     geckodriver
-    gh
-    git
     glibc
     gnumake
     go
     jdk21
     python3
     python311Packages.pygments
-    racket
     rars
     rustc
-    scilab-bin
-    swiProlog
-    tldr
     vscode
   ]);
 }
