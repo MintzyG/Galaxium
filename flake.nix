@@ -9,6 +9,10 @@
     };
     nixvim.url = "github:MintzyG/Celestium";
     catppuccin.url = "github:catppuccin/nix";
+    firefox-addons = {
+      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { nixpkgs, home-manager, catppuccin, ... }@inputs: 

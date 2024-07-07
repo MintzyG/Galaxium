@@ -1,8 +1,11 @@
 { pkgs, ... }:
 
 {
+  imports = [
+    ./firefox.nix
+  ];
+
   home.packages = with pkgs; [
-    firefox
     godot_4
     mpv
     obs-studio
