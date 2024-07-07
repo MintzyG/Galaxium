@@ -4,6 +4,6 @@
     BROWSER = "firefox";
     TERMINAL = "kitty";
 
-    FLAKE = "/home/sophia/galaxium";
+    FLAKE = "/home/sophia/.config/galaxium";
   };
 }

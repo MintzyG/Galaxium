@@ -9,8 +9,6 @@
 
   environment.systemPackages = with pkgs; [
     gamemode
-    heroic
-    lutris
     osu-lazer-bin
     prismlauncher
     protontricks

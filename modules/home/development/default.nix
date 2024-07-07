@@ -8,9 +8,9 @@
 
   home.packages = with pkgs; [
     # gnat
-    # rustup
+    rustup
+    # cargo
     dotnet-sdk_8
-    elixir
     freeglut
     gcc
     gccMultiStdenv
@@ -22,8 +22,6 @@
     jdk21
     python3
     python311Packages.pygments
-    rars
-    rustc
-    vscode
+    # rustc
   ];
 }

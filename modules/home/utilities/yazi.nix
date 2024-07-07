@@ -1,7 +1,7 @@
 {
   programs.yazi = {
     enable = true;
-    enableZshIntegration = true;
+    enableFishIntegration = true;
     catppuccin.enable = true;
 
     settings = {

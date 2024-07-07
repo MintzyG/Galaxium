@@ -10,6 +10,8 @@
       init.defaultBranch = "main";
     };
 
+    lfs.enable = true;
+
     difftastic = {
       enable = true;
       display = "side-by-side-show-both";

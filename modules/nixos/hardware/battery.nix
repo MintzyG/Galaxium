@@ -8,8 +8,8 @@
       enable = true;
       settings = {
         battery = {
-           governor = "powersave";
-           turbo = "never";
+           governor = "performance";
+           turbo = "auto";
         };
         charger = {
            governor = "performance";
@@ -21,9 +21,4 @@
     power-profiles-daemon.enable = false;
     thermald.enable = true;
   };
-
-  powerManagement.powertop.enable = true;
-  environment.systemPackages = with pkgs; [
-    powertop
-  ];
 }

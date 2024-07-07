@@ -6,10 +6,10 @@
     description = "Sophia";
     extraGroups = [ "networkmanager" "wheel" "libvirtd" ];
     # packages = with pkgs; [];
-    shell = pkgs.zsh;
+    shell = pkgs.fish;
   };
 
-  programs.zsh.enable = true;
+  programs.fish.enable = true;
 
   time.timeZone = "America/Sao_Paulo";
   i18n = {

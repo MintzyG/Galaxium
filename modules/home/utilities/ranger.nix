@@ -1,5 +1,3 @@
-_:
-
 {
   home.file.".config/ranger/rc.conf".text = ''
     set preview_images true

@@ -6,6 +6,8 @@
     ./eza.nix
     ./kitty.nix
     ./ranger.nix
+    ./taskwarrior.nix
+    ./tmux.nix
     ./yazi.nix
   ];
 
@@ -22,8 +24,6 @@
     nix-output-monitor
     nvd
     pavucontrol
-    qimgv
-    ranger
     slurp
     swappy
     tldr
