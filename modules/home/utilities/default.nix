@@ -6,6 +6,7 @@
     ./eza.nix
     ./hyfetch.nix
     ./kitty.nix
+    ./nix-helpers.nix
     ./ranger.nix
     ./taskwarrior.nix
     ./tmux.nix
@@ -20,10 +21,6 @@
     grim
     ncdu
     ngrok
-    nh
-    nix-index
-    nix-output-monitor
-    nvd
     pavucontrol
     slurp
     swappy

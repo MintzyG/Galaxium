@@ -8,8 +8,4 @@
     ./system
     ./user
   ];
-
-  environment.systemPackages = with pkgs; [
-    texliveFull
-  ];
 }

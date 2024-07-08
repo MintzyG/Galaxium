@@ -5,7 +5,7 @@
       Description = "Sww Daemon";
     };
     Service = {
-      ExecStart = "${pkgs.swww}/bin/swww-daemon --format xrgb";
+      ExecStart = "${pkgs.swww}/bin/swww-daemon -q --format xrgb";
       Restart = "no";
     };
     Install.WantedBy = ["graphical-session.target"];
