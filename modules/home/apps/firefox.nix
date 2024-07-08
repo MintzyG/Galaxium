@@ -82,6 +82,20 @@
               ];
               definedAliases = [ "!gr" ];
             };
+            "Github Users" = {
+              urls = [
+                {
+                  template = "https://github.com/{searchTerms}";
+                  parms = [
+                    {
+                      name = "user";
+                      value = "{searchTerms}";
+                    }
+                  ];
+                }
+              ];
+              definedAliases = [ "!gu" ];
+            };
             "Home Manager NixOs" = {
               urls = [
                 {
