@@ -4,6 +4,7 @@
   imports = [
     ./bat.nix
     ./eza.nix
+    ./hyfetch.nix
     ./kitty.nix
     ./ranger.nix
     ./taskwarrior.nix
