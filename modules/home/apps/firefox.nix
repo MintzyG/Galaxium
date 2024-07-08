@@ -54,6 +54,34 @@
               icon = "https://www.youtube.com/s/desktop/a7b1ec23/img/favicon_32x32.png";
               definedAliases = [ "!yt" ];
             };
+            "Github Code" = {
+              urls = [
+                {
+                  template = "https://github.com/search?type=code&q={searchTerms}";
+                  parms = [
+                    {
+                      name = "query";
+                      value = "{searchTerms}";
+                    }
+                  ];
+                }
+              ];
+              definedAliases = [ "!gc" ];
+            };
+            "Github Repos" = {
+              urls = [
+                {
+                  template = "https://github.com/search?type=repositories&q={searchTerms}";
+                  parms = [
+                    {
+                      name = "query";
+                      value = "{searchTerms}";
+                    }
+                  ];
+                }
+              ];
+              definedAliases = [ "!gr" ];
+            };
             "Home Manager NixOs" = {
               urls = [
                 {
