@@ -4,7 +4,7 @@
   users.users.sophia = {
     isNormalUser = true;
     description = "Sophia";
-    extraGroups = [ "networkmanager" "wheel" "libvirtd" ];
+    extraGroups = [ "networkmanager" "wheel" "libvirtd" "docker" ];
     # packages = with pkgs; [];
     shell = pkgs.fish;
   };

@@ -1,6 +1,7 @@
 { pkgs, ... }:
 let
   print = import ../../../../scripts/print.nix { inherit pkgs; };
+  printSelection = import ../../../../scripts/printSelection.nix { inherit pkgs; };
   Wallpaper = import ../../../../scripts/wallpaper.nix { inherit pkgs; };
 in
 {
@@ -91,9 +92,9 @@ in
         preserve_split = "yes";
       };
 
-      master = {
-        new_is_master = true;
-      };
+      # master = {
+      #   new_is_master = true;
+      # };
 
       gestures = {
         workspace_swipe = "off";
@@ -144,6 +145,7 @@ in
         "$mainMod, mouse_down, workspace, e+1"
         "$mainMod, mouse_up, workspace, e-1"
         ", Print, exec, ${print}/bin/print"
+        "$mainMod, Print, exec, ${printSelection}/bin/printSelection"
         "$mainMod SHIFT, F1, exec, ${Wallpaper}/bin/Wallpaper"
       ];
 

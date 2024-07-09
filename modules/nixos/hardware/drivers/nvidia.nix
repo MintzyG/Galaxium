@@ -25,10 +25,9 @@ in {
   systemd.services.systemd-udev-trigger.restartIfChanged = false;
 
   hardware = {
-    opengl = {
+    graphics = {
       enable = true;
-      driSupport = true;
-      driSupport32Bit = true;
+      enable32Bit = true;
     };
 
     nvidiaOptimus.disable = false;

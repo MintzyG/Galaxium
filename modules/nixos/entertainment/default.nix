@@ -9,7 +9,7 @@
 
   environment.systemPackages = with pkgs; [
     gamemode
-    osu-lazer-bin
+    #osu-lazer-bin
     protontricks
     protonup-qt
     wine

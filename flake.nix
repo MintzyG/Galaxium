@@ -2,6 +2,7 @@
   description = "The eye of the universe";
 
   inputs = {
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -15,7 +16,7 @@
     };
   };
 
-  outputs = { nixpkgs, home-manager, catppuccin, ... }@inputs: 
+  outputs = { nixpkgs-stable, nixpkgs, home-manager, catppuccin, ... }@inputs: 
   let
     system = "x86_64-linux";
     pkgs = import nixpkgs {
@@ -27,25 +28,33 @@
     nixosConfigurations = {
       galaxium = nixpkgs.lib.nixosSystem {
         inherit system;
-        modules = [ 
+        modules = [
           ./modules/nixos
           catppuccin.nixosModules.catppuccin
         ];
-        specialArgs = { 
-          inherit inputs; 
+        specialArgs = {
+          pkgs-stable = import nixpkgs-stable {
+            inherit system;
+            config.allowUnfree = true;
+          };
+          inherit inputs;
         };
       };
     };
 
-    homeConfigurations = { 
+    homeConfigurations = {
       sophia = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-        modules = [ 
+        modules = [
           ./modules/home
           catppuccin.homeManagerModules.catppuccin
         ];
-        extraSpecialArgs = { 
-          inherit inputs; 
+        extraSpecialArgs = {
+          pkgs-stable = import nixpkgs-stable {
+            inherit system;
+            config.allowUnfree = true;
+          };
+          inherit inputs;
         };
       };
     };
