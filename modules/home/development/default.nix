@@ -17,6 +17,7 @@
     gnumake
     go
     jdk21
+    pkg-config
     python3
     python311Packages.pygments
   ];

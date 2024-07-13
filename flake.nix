@@ -16,7 +16,7 @@
     };
   };
 
-  outputs = { nixpkgs-stable, nixpkgs, home-manager, catppuccin, ... }@inputs: 
+  outputs = { nixpkgs-stable, nixpkgs, home-manager, catppuccin, ... } @ inputs: 
   let
     system = "x86_64-linux";
     pkgs = import nixpkgs {
