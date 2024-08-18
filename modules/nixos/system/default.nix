@@ -6,7 +6,7 @@
     ./nix.nix
     ./variables.nix
   ];
-
+  security.polkit.enable = true;
   environment.systemPackages = with pkgs; [ home-manager ];
   system.stateVersion = "23.11";
 }
