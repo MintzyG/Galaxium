@@ -16,14 +16,12 @@
     };
 
     keymap = {
-      manager.append_keymap = [
-        {
-          on = ["<Right>"];
-          run = ["open --state=none"];
-          desc = "Open file";
+      manager = [
+        { 
+          on = [ "<C-s>" ]; 
+          exec = "shell fish --block --confirm"; 
         }
       ];
     };
-
   };
 }
