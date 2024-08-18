@@ -7,6 +7,9 @@
     ./variables.nix
   ];
   security.polkit.enable = true;
-  environment.systemPackages = with pkgs; [ home-manager ];
+  environment.systemPackages = with pkgs; [ 
+    home-manager 
+    gparted
+  ];
   system.stateVersion = "23.11";
 }
