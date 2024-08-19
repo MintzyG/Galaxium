@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -16,7 +17,7 @@
     };
   };
 
-  outputs = { nixpkgs-stable, nixpkgs, home-manager, catppuccin, ... } @ inputs: 
+  outputs = { nixpkgs-stable, nixpkgs, home-manager, catppuccin, nixos-wsl, ... } @ inputs: 
   let
     system = "x86_64-linux";
     pkgs = import nixpkgs {
@@ -40,6 +41,17 @@
           inherit inputs;
         };
       };
+      nova = nixpkgs.lib.nixosSystem {
+        inherit system;
+        modules = [
+          nixos-wsl.nixosModules.default
+	  {
+            imports = [
+              ./modules/wsl
+	    ];
+	  }
+        ];
+      };
     };
 
     homeConfigurations = {
@@ -56,6 +68,16 @@
           };
           inherit inputs;
         };
+      };
+      nova = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+	modules = [
+          ./users/nova
+	  catppuccin.homeManagerModules.catppuccin
+	];
+	extraSpecialArgs = {
+          inherit inputs;
+	};
       };
     };
   };
