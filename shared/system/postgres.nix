@@ -1,14 +1,6 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
-  imports = [
-    ./entertainment
-    ./hardware
-    ./networking
-    ./system
-    ./user
-  ];
-
   config.services.postgresql = {
     enable = true;
     enableTCPIP = true;

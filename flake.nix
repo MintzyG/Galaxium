@@ -17,7 +17,7 @@
     };
   };
 
-  outputs = { nixpkgs-stable, nixpkgs, home-manager, catppuccin, nixos-wsl, ... } @ inputs: 
+  outputs = { nixpkgs-stable, nixpkgs, home-manager, catppuccin, nixos-wsl, ... } @ inputs:
   let
     system = "x86_64-linux";
     pkgs = import nixpkgs {
@@ -30,8 +30,8 @@
       galaxium = nixpkgs.lib.nixosSystem {
         inherit system;
         modules = [
-          ./modules/nixos
-          catppuccin.nixosModules.catppuccin
+          ./systems/elysium
+            catppuccin.nixosModules.catppuccin
         ];
         specialArgs = {
           pkgs-stable = import nixpkgs-stable {
@@ -45,11 +45,11 @@
         inherit system;
         modules = [
           nixos-wsl.nixosModules.default
-	  {
+          {
             imports = [
-              ./modules/wsl
-	    ];
-	  }
+              ./systems/nova
+            ];
+          }
         ];
       };
     };
@@ -59,7 +59,7 @@
         inherit pkgs;
         modules = [
           ./modules/home
-          catppuccin.homeManagerModules.catppuccin
+            catppuccin.homeManagerModules.catppuccin
         ];
         extraSpecialArgs = {
           pkgs-stable = import nixpkgs-stable {
@@ -71,13 +71,13 @@
       };
       nova = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-	modules = [
+        modules = [
           ./users/nova
-	  catppuccin.homeManagerModules.catppuccin
-	];
-	extraSpecialArgs = {
+            catppuccin.homeManagerModules.catppuccin
+        ];
+        extraSpecialArgs = {
           inherit inputs;
-	};
+        };
       };
     };
   };

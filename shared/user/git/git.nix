@@ -1,3 +1,5 @@
+{ pkgs, ... }:
+
 {
   programs.git = {
     enable = true;
@@ -17,4 +19,8 @@
       display = "side-by-side-show-both";
     };
   };
+
+  home.packages = with pkgs; [
+    gh
+  ];
 }
