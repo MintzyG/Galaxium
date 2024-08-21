@@ -1,6 +1,10 @@
 { pkgs, ... }:
 
 {
+  imports = [
+    ../../shared/system/postgres.nix
+  ];
+
   nixpkgs.config.allowUnfree = true;
 
   wsl = {
@@ -13,14 +17,13 @@
   environment.systemPackages = with pkgs; [
     gh
     git
+    go
     home-manager
     nh
     nix-output-monitor
     nvd
     neovim
   ];
-
-  fonts.packages = [ pkgs.nerdfonts ];
 
   users.users.nova = {
     isNormalUser = true;

@@ -9,8 +9,8 @@ _:
     ../../shared/user/utilities/eza.nix
     ../../shared/user/utilities/yazi.nix
     ../../shared/user/development/nvim.nix
-    ../../shared/user/git/git.nix
-    ../../shared/user/git/lazygit.nix
+    ../../shared/user/development/git.nix
+    ../../shared/user/development/lazygit.nix
   ];
 
   home = {
