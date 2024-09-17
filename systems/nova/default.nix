@@ -2,60 +2,27 @@
 
 {
   imports = [
+    ../../shared/system/docker.nix
+    ../../shared/system/locale.nix
+    ../../shared/system/nix.nix
     ../../shared/system/postgres.nix
   ];
 
-  nixpkgs.config.allowUnfree = true;
-
-  wsl = {
-    enable = true;
-    defaultUser = "nova";
-  };
-
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-  environment.systemPackages = with pkgs; [
-    gh
-    git
-    go
-    home-manager
-    nh
-    nix-output-monitor
-    nvd
-    neovim
-  ];
-
-  users.users.nova = {
-    isNormalUser = true;
-    description = "Nova";
-    extraGroups = [ "networkmanager" "wheel" "libvirtd" "docker" ];
-    shell = pkgs.fish;
-  };
+  wsl.enable = true;
+  wsl.defaultUser = "nova";
 
   programs.fish.enable = true;
-
-  time.timeZone = "America/Sao_Paulo";
-  i18n = {
-    defaultLocale = "pt_BR.UTF-8";
-    extraLocaleSettings = {
-      LC_ADDRESS = "pt_BR.UTF-8";
-      LC_IDENTIFICATION = "pt_BR.UTF-8";
-      LC_MEASUREMENT = "pt_BR.UTF-8";
-      LC_MONETARY = "pt_BR.UTF-8";
-      LC_NAME = "pt_BR.UTF-8";
-      LC_NUMERIC = "pt_BR.UTF-8";
-      LC_PAPER = "pt_BR.UTF-8";
-      LC_TELEPHONE = "pt_BR.UTF-8";
-      LC_TIME = "pt_BR.UTF-8";
-    };
+  users.users.nova = {
+    isNormalUser = true;
+    description = "WSL system user";
+    extraGroups = [ "networkmanager" "wheel" "libvirtd" "docker" ];
+    shell = pkgs.fish;
   };
 
   environment.sessionVariables = {
     EDITOR = "nvim";
     BROWSER = "firefox";
   };
-
-  console.keyMap = "br-abnt2";
 
   system.stateVersion = "24.05";
 }

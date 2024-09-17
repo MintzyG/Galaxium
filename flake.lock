@@ -422,11 +422,11 @@
         "nixvim": "nixvim_2"
       },
       "locked": {
-        "lastModified": 1720805318,
-        "narHash": "sha256-HyrBJNws4e/mFHklHdjtrijIpgp8ca1+5w73Y3BFoa0=",
+        "lastModified": 1724421908,
+        "narHash": "sha256-2P9lC+bIrFXjojxXnq7QpfdUW2NxWKmqhba//HCoqDw=",
         "owner": "MintzyG",
         "repo": "Celestium",
-        "rev": "cb1cfa1fef41cecea0cc695da26a4ddbb350fac4",
+        "rev": "04afda649ce13b3c4b1141a9e4c58178aca9d022",
         "type": "github"
       },
       "original": {

@@ -16,10 +16,11 @@
     };
 
     keymap = {
-      manager = [
-        { 
-          on = [ "<C-s>" ]; 
-          exec = "shell fish --block --confirm"; 
+      manager.prepend_keymap = [
+        {
+          on = ["<C-s>"];
+          run = ''shell "$SHELL" --block --confirm'';
+          desc = "Open shell here";
         }
       ];
     };

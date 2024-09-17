@@ -1,16 +1,5 @@
-{ pkgs, ... }: 
-
 {
-  users.users.sophia = {
-    isNormalUser = true;
-    description = "Sophia";
-    extraGroups = [ "networkmanager" "wheel" "libvirtd" "docker" ];
-    # packages = with pkgs; [];
-    shell = pkgs.fish;
-  };
-
-  programs.fish.enable = true;
-
+  console.keyMap = "br-abnt2";
   time.timeZone = "America/Sao_Paulo";
   i18n = {
     defaultLocale = "pt_BR.UTF-8";
@@ -26,13 +15,4 @@
       LC_TIME = "pt_BR.UTF-8";
     };
   };
-
-  services.xserver = {
-    xkb = {
-      layout = "br";
-      variant = "";
-    };
-  };
-
-  console.keyMap = "br-abnt2";
 }
