@@ -26,7 +26,11 @@
     };
     packages = with pkgs; [
     # Criar .nix para zellij
+      spring-boot-cli
+      jdk22
       zellij
+      nodejs
+      maven
     ];
   };
 }
