@@ -59,7 +59,7 @@
         inherit pkgs;
         modules = [
           ./modules/home
-            catppuccin.homeManagerModules.catppuccin
+          catppuccin.homeManagerModules.catppuccin
         ];
         extraSpecialArgs = {
           pkgs-stable = import nixpkgs-stable {
@@ -73,7 +73,17 @@
         inherit pkgs;
         modules = [
           ./users/nova
-            catppuccin.homeManagerModules.catppuccin
+          catppuccin.homeManagerModules.catppuccin
+        ];
+        extraSpecialArgs = {
+          inherit inputs;
+        };
+      };
+      minimal = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        modules = [
+          ./users/minimal
+          catppuccin.homeManagerModules.catppuccin
         ];
         extraSpecialArgs = {
           inherit inputs;
