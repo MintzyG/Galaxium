@@ -14,6 +14,7 @@
     ../../shared/system/postgres.nix
     ../../shared/system/security.nix
     ../../shared/system/sound.nix
+    ../../shared/system/steam.nix
     ../../shared/system/i3wm.nix
   ];
 
