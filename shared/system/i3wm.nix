@@ -12,10 +12,11 @@
     };
     displayManager = {
       lightdm.enable = true;
-      defaultSession = "none+i3";
     };
     xkb = {
       layout = "br";
     };
   };
+
+  services.displayManager.defaultSession = "none+i3";
 }
