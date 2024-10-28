@@ -52,13 +52,27 @@
           }
         ];
       };
+      heXen = nixpkgs.lib.nixosSystem {
+        inherit system;
+	modules = [
+          ./systems/heXen
+	  catppuccin.nixosModules.catppuccin
+	];
+	specialArgs = {
+          pkgs-stable = import nixpkgs-stable {
+            inherit system;
+	    config.allowUnfree = true;
+	  };
+	  inherit inputs;
+	};
+      };
     };
 
     homeConfigurations = {
       sophia = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         modules = [
-          ./modules/home
+          ./users/sophia
           catppuccin.homeManagerModules.catppuccin
         ];
         extraSpecialArgs = {
