@@ -3,7 +3,6 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../shared/user/desktop/awesome
     ../../shared/system/battery.nix
     ../../shared/system/bluetooth.nix
     ../../shared/system/boot.nix
@@ -15,6 +14,7 @@
     ../../shared/system/postgres.nix
     ../../shared/system/security.nix
     ../../shared/system/sound.nix
+    ../../shared/system/i3wm.nix
   ];
 
   networking = {

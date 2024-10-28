@@ -4,7 +4,7 @@
 
     settings = {
       disable_ligatures = "never";
-      background_opacity = "0.8";
+      background_opacity = "0.6";
       confirm_os_window_close = 0;
       enable_audio_bell = false;
       open_url_with = "firefox";
@@ -15,6 +15,6 @@
       bold_italic_font = "JetBrains Mono Bold Italic";
     };
 
-    theme = "Catppuccin-Macchiato";
+    themeFile = "Catppuccin-Macchiato";
   };
 }
