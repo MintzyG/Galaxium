@@ -1,13 +1,18 @@
-{ lib, ... }:
+{ pkgs, lib, ... }:
 let
   mod = "Mod4";
 in
 {
+  home.packages = with pkgs; [
+    xclip
+    feh
+  ];
+
   xsession.windowManager.i3 = {
     enable = true;
 
     extraConfig = ''
-      font pango:DejaVu Sans Mono 0
+      font pango:JetBrains Mono 0
       #for_window [class=".*"] title_format "<span alpha='1'>%title</span>"
     '';
 
@@ -105,7 +110,7 @@ in
 
       startup = [
         { command = "picom --config ~/.config/picom/picom.conf"; always = true; notification = false; }
-        # { command = "systemctl --user restart polybar"; always = true; notification = false; }
+        { command = "feh --bg-fill --randomize ~/galaxium/assets/wallpapers/*"; always = true; notification = false; }
       ];
     };
   };

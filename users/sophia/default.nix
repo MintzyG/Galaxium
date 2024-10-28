@@ -29,6 +29,7 @@
     };
     packages = with pkgs; [ 
       discord
+      killall
     ];
   };
 }
