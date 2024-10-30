@@ -5,7 +5,6 @@
 
   imports = [
     ../../shared/user/development/git.nix
-    ../../shared/user/development/go.nix
     ../../shared/user/development/lazygit.nix
     ../../shared/user/development/nvim.nix
     ../../shared/user/shell/fish.nix

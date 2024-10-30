@@ -28,9 +28,12 @@
       BROWSER = "firefox";
     };
     packages = with pkgs; [ 
+      brightnessctl
+      godot_4
       discord
       spotify
       killall
+      jq
     ];
   };
 }
