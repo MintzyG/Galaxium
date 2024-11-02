@@ -5,6 +5,7 @@ in
 {
   home.packages = with pkgs; [
     xclip
+    maim
     feh
   ];
 
@@ -106,6 +107,12 @@ in
         "${mod}+Shift+0" = "move container workspace number 10";
         "${mod}+Shift+c" = "reload";
         "${mod}+Shift+r" = "restart";
+
+        "Ctrl+Print" = "exec --no-startup-id maim \"/home/sophia/Pictures/$(date +%Y-%m-%d_%H-%M-%S).png\"";
+        "Ctrl+${mod}+Shift+Print" = "exec --no-startup-id maim -o --select \"/home/sophia/Pictures/$(date +%Y-%m-%d_%H-%M-%S).png\"";
+
+        "Print" = "exec --no-startup-id maim | xclip -selection clipboard -t image/png";
+        "Shift+Print" = "exec --no-startup-id maim -o --select | xclip -selection clipboard -t image/png";
       };
 
       startup = [

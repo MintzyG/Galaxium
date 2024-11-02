@@ -28,9 +28,12 @@
       BROWSER = "firefox";
     };
     packages = with pkgs; [ 
+      texliveFull
       brightnessctl
       godot_4
+      graphviz
       discord
+      postman
       spotify
       killall
       jq
