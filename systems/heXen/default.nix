@@ -19,7 +19,7 @@
   ];
 
   networking = {
-    hostName = "galaxium";
+    hostName = "heXen";
     networkmanager.enable = true;
   };
 
@@ -33,7 +33,7 @@
   programs.fish.enable = true;
   users.users.sophia = {
     isNormalUser = true;
-    description = "X11 System";
+    description = "Sophia - X11";
     extraGroups = [ "networkmanager" "wheel" "libvirtd" "docker" ];
     shell = pkgs.fish;
   };
