@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   imports = [
@@ -19,7 +19,6 @@
   ];
 
   networking = {
-  # Change Hostname
     hostName = "galaxium";
     networkmanager.enable = true;
   };
@@ -28,18 +27,20 @@
     EDITOR = "nvim";
     BROWSER = "firefox";
     TERMINAL = "kitty";
-  # Change Config name
-  # FLAKE = "/home/sophia/.config/galaxium";
+    FLAKE = "${config.users.users.sophia.home}/.config/galaxium";
   };
 
   programs.fish.enable = true;
-  # Change User Name
   users.users.sophia = {
     isNormalUser = true;
     description = "X11 System";
     extraGroups = [ "networkmanager" "wheel" "libvirtd" "docker" ];
     shell = pkgs.fish;
   };
+
+  environment.systemPackages = with pkgs; [
+    nh
+  ];
 
   system.stateVersion = "24.05";
 }

@@ -3,6 +3,11 @@ let
   mod = "Mod4";
 in
 {
+
+  imports = [
+    ../services/polybar.nix
+  ];
+
   home.packages = with pkgs; [
     xclip
     maim
@@ -39,28 +44,30 @@ in
         size = 8.0;
       };
 
-      bars = [{
-        position = "top";
-        mode = "dock";
-        fonts = {
-          names = [ "JetBrains Mono" ];
-          size = 11.0;
-        };
-        colors = {
-          background = "#181c24";
-          focusedWorkspace = {
-            background = "#afafaf";
-            border = "#afafaf";
-            text = "#181c24";
-          };
-          inactiveWorkspace = {
-            background = "#181c24";
-            border = "#afafaf";
-            text = "#afafaf";
-          };
-        };
-        extraConfig = ''separator_symbol " / "'';
-      }];
+      bars = [
+        # {
+        #   position = "top";
+        #   mode = "dock";
+        #   fonts = {
+        #     names = [ "JetBrains Mono" ];
+        #     size = 11.0;
+        #   };
+        #   colors = {
+        #     background = "#181c24";
+        #     focusedWorkspace = {
+        #       background = "#afafaf";
+        #       border = "#afafaf";
+        #       text = "#181c24";
+        #     };
+        #     inactiveWorkspace = {
+        #       background = "#181c24";
+        #       border = "#afafaf";
+        #       text = "#afafaf";
+        #     };
+        #   };
+        #   extraConfig = ''separator_symbol " / "'';
+        # }
+      ];
 
       keybindings = lib.mkOptionDefault {
         "${mod}+r" = "exec --no-startup-id rofi -show drun -show-icons";
@@ -116,6 +123,7 @@ in
       };
 
       startup = [
+        { command = "systemctl --user restart polybar"; always = true; notification = false; }
         { command = "picom --config ~/.config/picom/picom.conf"; always = true; notification = false; }
         { command = "feh --bg-fill --randomize ~/galaxium/assets/wallpapers/*"; always = true; notification = false; }
       ];
