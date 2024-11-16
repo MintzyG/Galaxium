@@ -6,6 +6,7 @@
     ../../shared/system/battery.nix
     ../../shared/system/bluetooth.nix
     ../../shared/system/boot.nix
+    ../../shared/system/docker.nix
     ../../shared/system/fonts.nix
     ../../shared/system/locale.nix
     ../../shared/system/nix.nix

@@ -5,11 +5,13 @@
 
   imports = [
     ../../shared/user/apps/firefox.nix
+    ../../shared/user/apps/mpd.nix
     ../../shared/user/development/c.nix
     ../../shared/user/development/git.nix
     ../../shared/user/development/go.nix
     ../../shared/user/development/lazygit.nix
     ../../shared/user/development/nvim.nix
+    ../../shared/user/development/ruby.nix
     ../../shared/user/shell/fish.nix
     ../../shared/user/services/picom.nix
     ../../shared/user/shell/starship.nix
@@ -28,15 +30,19 @@
       BROWSER = "firefox";
     };
     packages = with pkgs; [ 
-      texliveFull
       brightnessctl
+      chromium
+      discord
+      gimp
       godot_4
       graphviz
-      discord
+      jq
+      killall
+      osu-lazer-bin
       postman
       spotify
-      killall
-      jq
+      texliveFull
+      unzip
     ];
   };
 }

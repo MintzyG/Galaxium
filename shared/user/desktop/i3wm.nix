@@ -125,7 +125,7 @@ in
       startup = [
         { command = "systemctl --user restart polybar"; always = true; notification = false; }
         { command = "picom --config ~/.config/picom/picom.conf"; always = true; notification = false; }
-        { command = "feh --bg-fill --randomize ~/galaxium/assets/wallpapers/*"; always = true; notification = false; }
+        { command = "feh --bg-fill --randomize ~/.config/galaxium/assets/wallpapers/*"; always = true; notification = false; }
       ];
     };
   };

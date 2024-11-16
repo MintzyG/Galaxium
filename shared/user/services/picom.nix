@@ -11,7 +11,7 @@
 
     fadeDelta = 5;
     shadowOpacity = 0.2;
-    inactiveOpacity = 0.5;
+    inactiveOpacity = 1.0;
 
     fadeExclude = [
       "window_type = 'menu'"
@@ -27,6 +27,8 @@
     settings = {
       # corner-radius = 5;
       # round-borders = 5;
+
+      inactiveDim = 0.40;
 
       blur = {
         method = "gaussian";
