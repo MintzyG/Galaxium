@@ -1,108 +1,77 @@
 {
   description = "The eye of the universe";
 
+  outputs = { nixpkgs-stable, nixpkgs, home-manager, catppuccin, nixos-wsl, ... } @ inputs:
+    let
+      system = "x86_64-linux";
+      pkgs = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+      };
+      pkgs-stable = import nixpkgs-stable {
+        inherit system;
+        config.allowUnfree = true;
+      };
+      # Create a base system configuration function
+      mkSystem = extraModules: specialArgs: nixpkgs.lib.nixosSystem {
+        inherit system;
+        modules = [
+          catppuccin.nixosModules.catppuccin
+        ] ++ extraModules;
+        specialArgs = {
+          inherit inputs pkgs-stable;
+        } // specialArgs;
+      };
+      # Create a base home-manager configuration function
+      mkHome = modules: extraSpecialArgs: home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        modules = [
+          catppuccin.homeManagerModules.catppuccin
+        ] ++ modules;
+        extraSpecialArgs = {
+          inherit inputs pkgs-stable;
+        } // extraSpecialArgs;
+      };
+    in
+      {
+      nixosConfigurations = {
+        galaxium = mkSystem [ ./systems/elysium ] {};
+        heXen = mkSystem [ ./systems/heXen ] {};
+        nova = nixpkgs.lib.nixosSystem {
+          inherit system;
+          modules = [
+            nixos-wsl.nixosModules.default
+            ./systems/nova
+          ];
+        };
+      };
+
+      homeConfigurations = {
+        sophia = mkHome [ ./users/sophia ] {};
+        nova = mkHome [ ./users/nova ] {};
+        minimal = mkHome [ ./users/minimal ] {};
+      };
+    };
+
   inputs = {
+    # Core
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
-    home-manager = {
+    home-manager = { 
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixvim.url = "github:MintzyG/Celestium";
+
+    # System Specific
+    nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
+
+    # Theming
     catppuccin.url = "github:catppuccin/nix";
-    firefox-addons = {
-      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-  };
 
-  outputs = { nixpkgs-stable, nixpkgs, home-manager, catppuccin, nixos-wsl, ... } @ inputs:
-  let
-    system = "x86_64-linux";
-    pkgs = import nixpkgs {
-      inherit system;
-      config.allowUnfree = true;
-    };
-  in
-  {
-    nixosConfigurations = {
-      galaxium = nixpkgs.lib.nixosSystem {
-        inherit system;
-        modules = [
-          ./systems/elysium
-            catppuccin.nixosModules.catppuccin
-        ];
-        specialArgs = {
-          pkgs-stable = import nixpkgs-stable {
-            inherit system;
-            config.allowUnfree = true;
-          };
-          inherit inputs;
-        };
-      };
-      nova = nixpkgs.lib.nixosSystem {
-        inherit system;
-        modules = [
-          nixos-wsl.nixosModules.default
-          {
-            imports = [
-              ./systems/nova
-            ];
-          }
-        ];
-      };
-      heXen = nixpkgs.lib.nixosSystem {
-        inherit system;
-	modules = [
-          ./systems/heXen
-	  catppuccin.nixosModules.catppuccin
-	];
-	specialArgs = {
-          pkgs-stable = import nixpkgs-stable {
-            inherit system;
-	    config.allowUnfree = true;
-	  };
-	  inherit inputs;
-	};
-      };
-    };
-
-    homeConfigurations = {
-      sophia = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        modules = [
-          ./users/sophia
-          catppuccin.homeManagerModules.catppuccin
-        ];
-        extraSpecialArgs = {
-          pkgs-stable = import nixpkgs-stable {
-            inherit system;
-            config.allowUnfree = true;
-          };
-          inherit inputs;
-        };
-      };
-      nova = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        modules = [
-          ./users/nova
-          catppuccin.homeManagerModules.catppuccin
-        ];
-        extraSpecialArgs = {
-          inherit inputs;
-        };
-      };
-      minimal = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        modules = [
-          ./users/minimal
-          catppuccin.homeManagerModules.catppuccin
-        ];
-        extraSpecialArgs = {
-          inherit inputs;
-        };
-      };
-    };
+    # Applications
+    firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+    firefox-addons.inputs.nixpkgs.follows = "nixpkgs";
+    zen-browser.url = "github:0xc000022070/zen-browser-flake";
+    nixvim.url = "github:MintzyG/Celestium";
   };
 }

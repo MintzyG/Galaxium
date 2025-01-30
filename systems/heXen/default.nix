@@ -40,8 +40,12 @@
   };
 
   environment.systemPackages = with pkgs; [
+    home-manager
     nh
   ];
+
+  services.mysql.enable = true;
+  services.mysql.package = pkgs.mysql84;
 
   system.stateVersion = "24.05";
 }
