@@ -9,7 +9,6 @@ in
 {
   inherit (theming) gtk qt;
 
-  home.pointerCursor = theming.home.pointerCursor;
   home.packages = [
     print
     Wallpaper
