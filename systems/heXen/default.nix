@@ -16,7 +16,6 @@
     ../../shared/system/security.nix
     ../../shared/system/sound.nix
     ../../shared/system/steam.nix
-    ../../shared/system/i3wm.nix
   ];
 
   networking = {
@@ -26,11 +25,12 @@
 
   environment.sessionVariables = {
     EDITOR = "nvim";
-    BROWSER = "firefox";
+    BROWSER = "zen";
     TERMINAL = "kitty";
     FLAKE = "${config.users.users.sophia.home}/.config/galaxium";
   };
 
+  programs.hyprland.enable = true;
   programs.fish.enable = true;
   users.users.sophia = {
     isNormalUser = true;

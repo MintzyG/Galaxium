@@ -1,8 +1,8 @@
 {
+  catppuccin.yazi.enable = true;
   programs.yazi = {
     enable = true;
     enableFishIntegration = true;
-    catppuccin.enable = true;
 
     settings = {
       log = {

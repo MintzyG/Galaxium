@@ -65,8 +65,9 @@
     # System Specific
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
 
-    # Theming
+    # Ricing
     catppuccin.url = "github:catppuccin/nix";
+    ags.url = "github:aylur/ags";
 
     # Applications
     firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";

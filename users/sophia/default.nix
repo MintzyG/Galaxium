@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 {
   programs.home-manager.enable = true;
@@ -13,12 +13,14 @@
     ../../shared/user/development/nvim.nix
     ../../shared/user/development/ruby.nix
     ../../shared/user/shell/fish.nix
+    ../../shared/user/services/ags.nix
+    ../../shared/user/services/swww.nix
     ../../shared/user/services/picom.nix
     ../../shared/user/shell/starship.nix
     ../../shared/user/utilities/eza.nix
     ../../shared/user/utilities/yazi.nix
     ../../shared/user/utilities/kitty.nix
-    ../../shared/user/desktop/i3wm.nix
+    ../../shared/user/desktop/hyprland.nix
   ];
 
   home = {
@@ -27,15 +29,15 @@
     homeDirectory = "/home/sophia/";
     sessionVariables = {
       EDITOR = "nvim";
-      BROWSER = "firefox";
+      BROWSER = "zen";
     };
     packages = with pkgs; [ 
+      inputs.zen-browser.packages."x86_64-linux".twilight
       brightnessctl
       chromium
       discord
       gimp
       godot_4
-      graphviz
       jq
       killall
       osu-lazer-bin
