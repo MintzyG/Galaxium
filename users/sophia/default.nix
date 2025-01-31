@@ -14,6 +14,7 @@
     ../../shared/user/services/ags.nix
     ../../shared/user/services/swww.nix
     ../../shared/user/shell/starship.nix
+    ../../shared/user/utilities/btop.nix
     ../../shared/user/utilities/eza.nix
     ../../shared/user/utilities/hyfetch.nix
     ../../shared/user/utilities/yazi.nix
