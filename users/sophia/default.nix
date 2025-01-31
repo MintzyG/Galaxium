@@ -15,9 +15,11 @@
     ../../shared/user/services/swww.nix
     ../../shared/user/shell/starship.nix
     ../../shared/user/utilities/eza.nix
+    ../../shared/user/utilities/hyfetch.nix
     ../../shared/user/utilities/yazi.nix
     ../../shared/user/utilities/kitty.nix
     ../../shared/user/desktop/hyprland.nix
+    ../../shared/user/user/pfp.nix
   ];
 
   home = {

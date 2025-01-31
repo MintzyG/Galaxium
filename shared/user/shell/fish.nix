@@ -3,12 +3,15 @@
 {
   programs.fish = {
     enable = true;
-    shellAbbrs = { 
+    shellAbbrs = {
+      neofetch = "hyfetch";
+      hy = "hyfetch";
+      nf = "hyfetch";
       cfg = "yazi ~/.config/galaxium/";
       cfn = "yazi ~/.config/Celestium/";
       le = "eza --icons --color=always --git";
       gg = "lazygit";
-      e = "yazi";
+      yy = "yazi";
     };
   };
 

@@ -2,6 +2,7 @@
   imports = [
     ./styling.nix
     ./user.nix
+    ./pfp.nix
   ];
 
   # nix = {
