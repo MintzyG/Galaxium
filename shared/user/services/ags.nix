@@ -1,15 +1,10 @@
 { config, inputs, lib, pkgs, ... }:
 let
-  generateScss = ''
-    $bg: #282a36;      // Background
-    $border: #44475a;  // Current Line / Selection
-    $text: #f8f8f2;    // Foreground (Text)
-    $main: #bd93f9;    // Accent (Purple)
-  '';
-
   ags = inputs.ags.packages.${pkgs.system};
   deps = [
+    ags.apps
     ags.battery
+    ags.bluetooth
     ags.hyprland
     ags.mpris
     ags.network
@@ -19,7 +14,6 @@ let
 in
   {
   imports = [ inputs.ags.homeManagerModules.default ];
-
 
   programs.ags = {
     enable = true;
@@ -31,8 +25,6 @@ in
       pkgs.pwvucontrol
     ];
   };
-
-  home.file."${config.home.homeDirectory}/.config/galaxium/shared/user/ags/bar/variables.scss".text = generateScss;
 
   systemd.user.services.ags-bar = {
     Unit = {
