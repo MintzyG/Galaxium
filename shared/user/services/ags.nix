@@ -17,7 +17,7 @@ in
 
   programs.ags = {
     enable = true;
-    configDir = ../ags;
+    configDir = ../ags/bar;
     package = ags.agsFull.overrideAttrs {
       postFixup = ''wrapProgram $out/bin/ags --prefix PATH : ${lib.makeBinPath deps}'';
     };
