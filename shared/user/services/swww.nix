@@ -8,7 +8,7 @@
       ExecStart = "${pkgs.swww}/bin/swww-daemon -q --format xrgb";
       Restart = "no";
     };
-    Install.WantedBy = ["graphical-session.target"];
+    Install.WantedBy = ["hyprland-session.target"];
   };
 
   home.packages = with pkgs; [

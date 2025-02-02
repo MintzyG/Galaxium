@@ -29,8 +29,8 @@ in
   systemd.user.services.ags-bar = {
     Unit = {
       Description = "AGS Bar";
-      PartOf = [ "graphical-session.target" ];
-      After = [ "graphical-session.target" ];
+      PartOf = [ "hyprland-session.target" ];
+      After = [ "hyprland-session.target" ];
     };
 
     Service =
@@ -44,6 +44,6 @@ in
         KillMode = "mixed";
       };
 
-    Install.WantedBy = [ "graphical-session.target" ];
+    Install.WantedBy = [ "hyprland-session.target" ];
   };
 }

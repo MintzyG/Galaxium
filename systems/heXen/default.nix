@@ -9,6 +9,7 @@
     ../../shared/system/docker.nix
     ../../shared/system/fonts.nix
     ../../shared/system/locale.nix
+    ../../shared/system/ly.nix
     ../../shared/system/nix.nix
     ../../shared/system/nvidia.nix
     ../../shared/system/opentabletdriver.nix
