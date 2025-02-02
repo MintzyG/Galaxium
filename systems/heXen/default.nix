@@ -13,6 +13,7 @@
     ../../shared/system/nix.nix
     ../../shared/system/nvidia.nix
     ../../shared/system/opentabletdriver.nix
+    ../../shared/system/plymouth.nix.nix
     ../../shared/system/postgres.nix
     ../../shared/system/security.nix
     ../../shared/system/sound.nix
