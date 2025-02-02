@@ -32,7 +32,7 @@
       BROWSER = "zen";
     };
     packages = with pkgs; [ 
-      inputs.zen-browser.packages."x86_64-linux".twilight
+      inputs.zen-browser.packages."x86_64-linux".default
       brightnessctl
       discord
       gimp
