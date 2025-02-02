@@ -148,9 +148,9 @@ in
         "$mainMod, mouse_down, workspace, e+1"
         "$mainMod, mouse_up, workspace, e-1"
 
-        ", Print, exec, ${print}/bin/print"
+        "SHIFT, S, exec, ${print}/bin/print"
         "$mainMod, Print, exec, ${printSelection}/bin/printSelection"
-        "$mainMod SHIFT, F1, exec, ${Wallpaper}/bin/Wallpaper"
+        "$mainMod, W, exec, ${Wallpaper}/bin/Wallpaper"
       ];
 
       bindm = [

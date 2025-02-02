@@ -454,11 +454,11 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1738297584,
-        "narHash": "sha256-AYvaFBzt8dU0fcSK2jKD0Vg23K2eIRxfsVXIPCW9a0E=",
+        "lastModified": 1738422722,
+        "narHash": "sha256-Q4vhtbLYWBUnjWD4iQb003Lt+N5PuURDad1BngGKdUs=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "9189ac18287c599860e878e905da550aa6dec1cd",
+        "rev": "102a39bfee444533e6b4e8611d7e92aa39b7bec1",
         "type": "github"
       },
       "original": {
@@ -523,11 +523,11 @@
         "nixvim": "nixvim_2"
       },
       "locked": {
-        "lastModified": 1738369019,
-        "narHash": "sha256-USuYLKn3wCUHg7Ih8WUTL/I4IRSuDldezhzjykFCvi8=",
+        "lastModified": 1738522479,
+        "narHash": "sha256-csur4e0I5LMvkCEkutQjf1Jr4qp5airyOXjSCljdmhk=",
         "owner": "MintzyG",
         "repo": "Celestium",
-        "rev": "c8a9ca769e0fbdc487a1a5df6b3f83fe4e2a3fba",
+        "rev": "6d00d2fff33c464d678a1706da8fbe89361060b4",
         "type": "github"
       },
       "original": {
