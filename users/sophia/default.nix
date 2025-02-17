@@ -35,10 +35,12 @@
       inputs.zen-browser.packages."x86_64-linux".default
       brightnessctl
       discord
+      docker-compose
       gimp
       godot_4
       jq
       killall
+      obsidian
       osu-lazer-bin
       postman
       spotify

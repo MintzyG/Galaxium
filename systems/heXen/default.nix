@@ -45,8 +45,12 @@
     nh
   ];
 
-  services.mysql.enable = true;
-  services.mysql.package = pkgs.mysql84;
+  services = {
+    mysql = {
+      enable = true;
+      package = pkgs.mysql84;
+    };
+  };
 
   system.stateVersion = "24.05";
 }

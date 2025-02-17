@@ -148,7 +148,7 @@ in
         "$mainMod, mouse_down, workspace, e+1"
         "$mainMod, mouse_up, workspace, e-1"
 
-        "SHIFT, S, exec, ${print}/bin/print"
+        "SHIFT, Print, exec, ${print}/bin/print"
         "$mainMod, Print, exec, ${printSelection}/bin/printSelection"
         "$mainMod, W, exec, ${Wallpaper}/bin/Wallpaper"
       ];
