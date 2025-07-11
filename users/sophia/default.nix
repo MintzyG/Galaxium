@@ -5,6 +5,7 @@
 
   imports = [
     ../../shared/user/apps/mpd.nix
+    ../../shared/user/apps/obs.nix
     ../../shared/user/development/c.nix
     ../../shared/user/development/extra.nix
     ../../shared/user/development/git.nix
@@ -12,7 +13,6 @@
     ../../shared/user/development/lazygit.nix
     ../../shared/user/development/nvim.nix
     ../../shared/user/shell/fish.nix
-    ../../shared/user/services/ags.nix
     ../../shared/user/services/swww.nix
     ../../shared/user/shell/starship.nix
     ../../shared/user/utilities/btop.nix
@@ -33,9 +33,11 @@
     sessionVariables = {
       EDITOR = "nvim";
       BROWSER = "zen";
+      TERMINAL = "ghostty";
     };
     packages = with pkgs; [ 
       inputs.zen-browser.packages."x86_64-linux".default
+      inputs.quickshell.packages."x86_64-linux".default
       brightnessctl
       chromium
       code-cursor

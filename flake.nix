@@ -64,7 +64,10 @@
 
     # Ricing
     stylix.url = "github:danth/stylix";
-    ags.url = "github:aylur/ags";
+    quickshell = {
+      url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Applications
     firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";

@@ -29,7 +29,7 @@
   environment.sessionVariables = {
     EDITOR = "nvim";
     BROWSER = "zen";
-    TERMINAL = "kitty";
+    TERMINAL = "ghostty";
     NH_FLAKE = "${config.users.users.sophia.home}/.config/galaxium";
   };
 

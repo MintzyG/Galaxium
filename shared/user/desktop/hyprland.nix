@@ -102,7 +102,7 @@ in
       "$mainMod" = "SUPER";
 
       bind = [
-        "$mainMod, Q, exec, kitty"
+        "$mainMod, Q, exec, $TERMINAL"
         "$mainMod, C, killactive,"
         "$mainMod, E, exec, dolphin"
         "$mainMod, V, togglefloating,"

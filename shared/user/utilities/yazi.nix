@@ -8,14 +8,14 @@
         enabled = false;
       };
 
-      manager = {
+      mgr = {
         show_hidden = false;
         sort_dir_first = true;
       };
     };
 
     keymap = {
-      manager.prepend_keymap = [
+      mgr.prepend_keymap = [
         {
           on = ["<C-s>"];
           run = ''shell "$SHELL" --block --confirm'';

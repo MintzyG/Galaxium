@@ -4,7 +4,7 @@
   stylix = {
     enable = true;
     targets.qt.enable = true;
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/everforest.yaml";
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/dracula.yaml";
 
     cursor = {
       package = pkgs.bibata-cursors;
