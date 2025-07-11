@@ -29,7 +29,7 @@
     EDITOR = "nvim";
     BROWSER = "zen";
     TERMINAL = "kitty";
-    FLAKE = "${config.users.users.sophia.home}/.config/galaxium";
+    NH_FLAKE = "${config.users.users.sophia.home}/.config/galaxium";
   };
 
   programs.hyprland.enable = true;

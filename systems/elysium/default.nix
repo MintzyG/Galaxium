@@ -26,7 +26,7 @@
     BROWSER = "firefox";
     TERMINAL = "kitty";
   # Change Config name
-  # FLAKE = "/home/sophia/.config/galaxium";
+  # NH_FLAKE = "/home/sophia/.config/galaxium";
   };
 
   programs.fish.enable = true;
