@@ -7,7 +7,7 @@
       background_opacity = "0.6";
       confirm_os_window_close = 0;
       enable_audio_bell = false;
-      open_url_with = "firefox";
+      open_url_with = "zen";
 
       font_family = "JetBrains Mono";
       bold_font = "JetBrains Mono Bold";

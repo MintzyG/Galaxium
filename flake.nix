@@ -26,7 +26,7 @@
       mkHome = modules: extraSpecialArgs: home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         modules = [
-          catppuccin.homeManagerModules.catppuccin
+          catppuccin.homeModules.catppuccin
         ] ++ modules;
         extraSpecialArgs = {
           inherit inputs pkgs-stable;

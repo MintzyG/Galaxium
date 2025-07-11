@@ -6,6 +6,7 @@
   imports = [
     ../../shared/user/apps/mpd.nix
     ../../shared/user/development/c.nix
+    ../../shared/user/development/extra.nix
     ../../shared/user/development/git.nix
     ../../shared/user/development/go.nix
     ../../shared/user/development/lazygit.nix
@@ -34,16 +35,13 @@
     packages = with pkgs; [ 
       inputs.zen-browser.packages."x86_64-linux".default
       brightnessctl
+      chromium
+      code-cursor
       discord
       docker-compose
-      gimp
-      godot_4
+      jdk23
       jq
       killall
-      obsidian
-      osu-lazer-bin
-      postman
-      spotify
       unzip
     ];
   };

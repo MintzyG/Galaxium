@@ -7,8 +7,9 @@
 
   services.mpd = {
     enable = true;
-    musicDirectory = "${config.home.homeDirectory}/Music";
+    musicDirectory = "~/Music";
     network.listenAddress = "any";
+    network.startWhenNeeded = true;
     extraConfig = ''
       audio_output {
       type "pipewire"
