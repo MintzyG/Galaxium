@@ -4,11 +4,8 @@ let
   print = import ../../../scripts/print.nix { inherit pkgs; };
   printSelection = import ../../../scripts/printSelection.nix { inherit pkgs; };
   Wallpaper = import ../../../scripts/wallpaper.nix { inherit pkgs; };
-  theming = import ./theme.nix { inherit pkgs; };
 in
 {
-  inherit (theming) gtk qt;
-
   home.packages = [
     print
     Wallpaper
@@ -54,8 +51,6 @@ in
         gaps_in = 5;
         gaps_out = 20;
         border_size = 2;
-        "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
-        "col.inactive_border" = "rgba(595959aa)";
 
         layout = "dwindle";
 

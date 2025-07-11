@@ -18,6 +18,7 @@
     ../../shared/system/security.nix
     ../../shared/system/sound.nix
     ../../shared/system/steam.nix
+    ../../shared/system/stylix.nix
   ];
 
   networking = {

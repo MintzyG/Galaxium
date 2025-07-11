@@ -20,6 +20,8 @@
     ../../shared/user/utilities/hyfetch.nix
     ../../shared/user/utilities/yazi.nix
     ../../shared/user/utilities/kitty.nix
+    ../../shared/user/utilities/ghostty.nix
+    ../../shared/user/utilities/stylix.nix
     ../../shared/user/desktop/hyprland.nix
     ../../shared/user/user/pfp.nix
   ];

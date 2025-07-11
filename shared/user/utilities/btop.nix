@@ -4,7 +4,6 @@
     settings = {
 
       # General settings
-      color_theme = "adapta";
       theme_background = true;
       show_help = true;
       update_rate = 1000;

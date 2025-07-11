@@ -1,7 +1,7 @@
 {
   description = "The eye of the universe";
 
-  outputs = { nixpkgs-stable, nixpkgs, home-manager, catppuccin, nixos-wsl, ... } @ inputs:
+  outputs = { nixpkgs-stable, nixpkgs, home-manager, nixos-wsl, ... } @ inputs:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -15,9 +15,7 @@
       # Create a base system configuration function
       mkSystem = extraModules: specialArgs: nixpkgs.lib.nixosSystem {
         inherit system;
-        modules = [
-          catppuccin.nixosModules.catppuccin
-        ] ++ extraModules;
+        modules = [] ++ extraModules;
         specialArgs = {
           inherit inputs pkgs-stable;
         } // specialArgs;
@@ -25,9 +23,7 @@
       # Create a base home-manager configuration function
       mkHome = modules: extraSpecialArgs: home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-        modules = [
-          catppuccin.homeModules.catppuccin
-        ] ++ modules;
+        modules = [] ++ modules;
         extraSpecialArgs = {
           inherit inputs pkgs-stable;
         } // extraSpecialArgs;
@@ -35,11 +31,12 @@
     in
       {
       nixosConfigurations = {
-        galaxium = mkSystem [ ./systems/elysium ] {};
-        heXen = mkSystem [ ./systems/heXen ] {};
+        galaxium = mkSystem [ ./systems/elysium inputs.stylix.nixosModules.stylix ] {};
+        heXen = mkSystem [ ./systems/heXen inputs.stylix.nixosModules.stylix ] {};
         nova = nixpkgs.lib.nixosSystem {
           inherit system;
           modules = [
+            inputs.stylix.nixosModules.stylix
             nixos-wsl.nixosModules.default
             ./systems/nova
           ];
@@ -66,7 +63,7 @@
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
 
     # Ricing
-    catppuccin.url = "github:catppuccin/nix";
+    stylix.url = "github:danth/stylix";
     ags.url = "github:aylur/ags";
 
     # Applications

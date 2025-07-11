@@ -1,10 +1,12 @@
+{ lib, ... }:
+
 {
   programs.kitty = {
     enable = true;
 
     settings = {
       disable_ligatures = "never";
-      background_opacity = "0.6";
+      background_opacity = lib.mkForce "0.6";
       confirm_os_window_close = 0;
       enable_audio_bell = false;
       open_url_with = "zen";

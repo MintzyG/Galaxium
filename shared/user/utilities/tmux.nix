@@ -3,7 +3,6 @@
 {
   programs.tmux = {
     enable = true;
-    catppuccin.enable = true;
     clock24 = true;
     prefix = "C-Space";
     keyMode = "vi";
