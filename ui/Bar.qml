@@ -1,6 +1,7 @@
 import Quickshell
 import Quickshell.Io
 import QtQuick
+import Quickshell.Hyprland
 
 Scope {
   Variants {
@@ -12,15 +13,13 @@ Scope {
 
       anchors {
         top: true
+        bottom: true
         left: true
-        right: true
       }
 
-      implicitHeight: 30
+      implicitWidth: 30
 
-      ClockWidget {
-        anchors.centerIn: parent
-      }
+      WorkspaceComponent{}
     }
   }
 }

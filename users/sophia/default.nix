@@ -46,6 +46,7 @@
       jdk23
       jq
       killall
+      spotify
       unzip
     ];
   };
