@@ -2,10 +2,10 @@
 
 {
   imports = [
-    ./hardware-configuration.nix
     ../../shared/system/battery.nix
     ../../shared/system/bluetooth.nix
     ../../shared/system/boot.nix
+    ../../shared/system/dm.nix
     ../../shared/system/docker.nix
     ../../shared/system/fonts.nix
     ../../shared/system/locale.nix
@@ -16,6 +16,7 @@
     ../../shared/system/sound.nix
     ../../shared/system/steam.nix
     ../../shared/system/stylix.nix
+    ./hardware-configuration.nix
   ];
 
   networking = {
@@ -35,7 +36,7 @@
   users.users.sophia = {
     isNormalUser = true;
     description = "Sophia";
-    extraGroups = [ "networkmanager" "wheel" "libvirtd" "docker" ];
+    extraGroups = [ "networkmanager" "wheel" "libvirtd" "docker" "seat" ];
     shell = pkgs.fish;
   };
 

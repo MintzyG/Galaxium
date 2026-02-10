@@ -149,7 +149,7 @@ in
         "$mainMod, mouse:273, resizewindow"
       ];
 
-      exec-once = "${Wallpaper}/bin/Wallpaper";
+      exec-once = [ "${Wallpaper}/bin/Wallpaper" "${pkgs.greetd.gtkgreet}/bin/gtkgreet -l" ];
     };
   };
 }
