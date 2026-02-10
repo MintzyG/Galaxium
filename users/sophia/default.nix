@@ -5,9 +5,6 @@
 
   imports = [
     ../../shared/user/apps/mpd.nix
-    ../../shared/user/apps/obs.nix
-    ../../shared/user/development/c.nix
-    ../../shared/user/development/extra.nix
     ../../shared/user/development/git.nix
     ../../shared/user/development/go.nix
     ../../shared/user/development/lazygit.nix
@@ -27,7 +24,7 @@
   ];
 
   home = {
-    stateVersion = "24.05";
+    stateVersion = "25.11";
     username = "sophia";
     homeDirectory = "/home/sophia/";
     sessionVariables = {
@@ -39,15 +36,6 @@
       inputs.zen-browser.packages."x86_64-linux".default
       inputs.quickshell.packages."x86_64-linux".default
       brightnessctl
-      chromium
-      code-cursor
-      discord
-      docker-compose
-      jdk23
-      jq
-      killall
-      spotify
-      unzip
     ];
   };
 }

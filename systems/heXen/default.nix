@@ -6,15 +6,12 @@
     ../../shared/system/battery.nix
     ../../shared/system/bluetooth.nix
     ../../shared/system/boot.nix
-    ../../shared/system/development.nix
     ../../shared/system/docker.nix
     ../../shared/system/fonts.nix
     ../../shared/system/locale.nix
-    ../../shared/system/ly.nix
     ../../shared/system/nix.nix
     ../../shared/system/nvidia.nix
     ../../shared/system/opentabletdriver.nix
-    ../../shared/system/postgres.nix
     ../../shared/system/security.nix
     ../../shared/system/sound.nix
     ../../shared/system/steam.nix
@@ -37,7 +34,7 @@
   programs.fish.enable = true;
   users.users.sophia = {
     isNormalUser = true;
-    description = "Sophia - X11";
+    description = "Sophia";
     extraGroups = [ "networkmanager" "wheel" "libvirtd" "docker" ];
     shell = pkgs.fish;
   };
@@ -47,12 +44,5 @@
     nh
   ];
 
-  services = {
-    mysql = {
-      enable = true;
-      package = pkgs.mysql84;
-    };
-  };
-
-  system.stateVersion = "24.05";
+  system.stateVersion = "25.11";
 }

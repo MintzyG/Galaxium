@@ -4,20 +4,21 @@
   programs.git = {
     enable = true;
 
-    userEmail = "ericbraga2000@gmail.com";
-    userName = "MintzyG";
-
-    extraConfig = {
-      github.user = "MintzyG";
-      init.defaultBranch = "main";
+    settings = {
+      user.email = "ericbraga2000@gmail.com";
+      user.name = "MintzyG";
+      extraConfig = {
+        github.user = "MintzyG";
+        init.defaultBranch = "main";
+      };
     };
-
     lfs.enable = true;
+  };
 
-    difftastic = {
-      enable = true;
-      display = "side-by-side-show-both";
-    };
+  programs.difftastic = {
+    enable = true;
+    git.enable = true;
+    options.display = "side-by-side-show-both";
   };
 
   home.packages = with pkgs; [

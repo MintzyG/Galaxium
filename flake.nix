@@ -1,7 +1,7 @@
 {
   description = "The eye of the universe";
 
-  outputs = { nixpkgs-stable, nixpkgs, home-manager, nixos-wsl, ... } @ inputs:
+  outputs = { nixpkgs-stable, nixpkgs, home-manager, ... } @ inputs:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -28,19 +28,10 @@
           inherit inputs pkgs-stable;
         } // extraSpecialArgs;
       };
-    in
-      {
+    in {
       nixosConfigurations = {
         galaxium = mkSystem [ ./systems/elysium inputs.stylix.nixosModules.stylix ] {};
         heXen = mkSystem [ ./systems/heXen inputs.stylix.nixosModules.stylix ] {};
-        nova = nixpkgs.lib.nixosSystem {
-          inherit system;
-          modules = [
-            inputs.stylix.nixosModules.stylix
-            nixos-wsl.nixosModules.default
-            ./systems/nova
-          ];
-        };
       };
 
       homeConfigurations = {
@@ -52,15 +43,12 @@
 
   inputs = {
     # Core
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     home-manager = { 
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    # System Specific
-    nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
 
     # Ricing
     stylix.url = "github:danth/stylix";
