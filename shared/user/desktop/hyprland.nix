@@ -248,6 +248,7 @@ in
         "${Wallpaper}/bin/Wallpaper" 
         "wl-paste --type text --watch cliphist store"
         "wl-paste --type image --watch cliphist store"
+        "quickshell"
       ];
     };
   };
