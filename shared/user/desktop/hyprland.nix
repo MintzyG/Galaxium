@@ -228,10 +228,10 @@ in
       ];
 
       binde = [
-        "$mainMod, F2, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
-        "$mainMod, F3, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
-        "$mainMod, F4, exec, brightnessctl set 5%-"
-        "$mainMod, F5, exec, brightnessctl set 5%+"
+        "ALT, F2, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+        "ALT, F3, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
+        "ALT, F4, exec, brightnessctl set 5%-"
+        "ALT, F5, exec, brightnessctl set 5%+"
       ];
 
       bindm = [

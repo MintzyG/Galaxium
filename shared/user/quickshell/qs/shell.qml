@@ -1,8 +1,50 @@
 import Quickshell
 import Quickshell.Wayland
+import Quickshell.Services.Pipewire
+import Quickshell.Io
 import QtQuick
 
 ShellRoot {
+    id: root
+
+    property real brightness: 0.5
+    property real brightnessMax: 1.0
+
+    PwObjectTracker {
+        objects: [ Pipewire.defaultAudioSink ]
+    }
+
+    Process {
+        id: procMax
+        command: ["brightnessctl", "max"]
+        running: true
+        stdout: SplitParser {
+            onRead: data => {
+                if (data) {
+                    root.brightnessMax = parseInt(data) || 1
+                    procGet.running = true
+                }
+            }
+        }
+    }
+
+    Process {
+        id: procGet
+        command: ["brightnessctl", "get"]
+        stdout: SplitParser {
+            onRead: data => {
+                if (data) root.brightness = parseInt(data) / root.brightnessMax
+            }
+        }
+    }
+
+    Timer {
+        interval: 100
+        running: true
+        repeat: true
+        onTriggered: procGet.running = true
+    }
+
     Variants {
         model: Quickshell.screens
 
@@ -26,6 +68,7 @@ ShellRoot {
             property real cornerSize: 30
             property real bodyRadius: 30
             property string bgColor: "#f3ead3"
+            property real volume: Pipewire.defaultAudioSink?.audio?.volume ?? 0.5
 
             MouseArea {
                 anchors.fill: parent
@@ -53,14 +96,10 @@ ShellRoot {
                     }
                 }
 
-                // canto côncavo superior
                 Canvas {
                     width: panel.cornerSize
                     height: panel.cornerSize
-                    anchors {
-                        top: parent.top
-                        right: parent.right
-                    }
+                    anchors { top: parent.top; right: parent.right }
                     onPaint: {
                         var ctx = getContext("2d")
                         ctx.clearRect(0, 0, width, height)
@@ -74,14 +113,10 @@ ShellRoot {
                     }
                 }
 
-                // canto côncavo inferior
                 Canvas {
                     width: panel.cornerSize
                     height: panel.cornerSize
-                    anchors {
-                        bottom: parent.bottom
-                        right: parent.right
-                    }
+                    anchors { bottom: parent.bottom; right: parent.right }
                     onPaint: {
                         var ctx = getContext("2d")
                         ctx.clearRect(0, 0, width, height)
@@ -95,7 +130,6 @@ ShellRoot {
                     }
                 }
 
-                // corpo principal
                 Rectangle {
                     anchors {
                         top: parent.top
@@ -108,53 +142,24 @@ ShellRoot {
                     color: panel.bgColor
                     radius: panel.bodyRadius
 
-                    // tapa o radius direito
                     Rectangle {
-                        anchors {
-                            top: parent.top
-                            bottom: parent.bottom
-                            right: parent.right
-                        }
+                        anchors { top: parent.top; bottom: parent.bottom; right: parent.right }
                         width: panel.bodyRadius
                         color: panel.bgColor
                     }
 
                     Column {
-                        anchors {
-                            fill: parent
-                            margins: 10
-                        }
+                        anchors { fill: parent; margins: 10 }
                         spacing: 10
 
-                        // Volume
+                        // Volume pill
                         Rectangle {
                             width: parent.width
                             height: (parent.height - 10) / 2
                             radius: width / 2
                             color: "#e5dfc5"
+                            clip: true
 
-                            // cabeça
-                            Rectangle {
-                                anchors {
-                                    top: parent.top
-                                    horizontalCenter: parent.horizontalCenter
-                                    topMargin: -width / 2
-                                }
-                                width: parent.width
-                                height: parent.width
-                                radius: width / 2
-                                color: "white"
-
-                                Text {
-                                    anchors.centerIn: parent
-                                    text: "󰕾"
-                                    font.pixelSize: parent.width * 0.5
-                                    font.family: "JetBrainsMono Nerd Font Mono"
-                                    color: "#2e383c"
-                                }
-                            }
-
-                            // barra interna
                             Rectangle {
                                 anchors {
                                     bottom: parent.bottom
@@ -162,45 +167,45 @@ ShellRoot {
                                     bottomMargin: 3
                                 }
                                 width: parent.width - 6
-                                height: (parent.height - 6) * 0.7
+                                height: (parent.height - 6) * panel.volume
                                 radius: width / 2
                                 color: "#2e383c"
 
                                 Behavior on height {
-                                    NumberAnimation { duration: 150; easing.type: Easing.OutCubic }
+                                    NumberAnimation { duration: 80; easing.type: Easing.OutCubic }
+                                }
+
+                                Rectangle {
+                                    anchors {
+                                        top: parent.top
+                                        horizontalCenter: parent.horizontalCenter
+                                        topMargin: 4
+                                    }
+                                    width: parent.width - 6
+                                    height: width
+                                    radius: width / 2
+                                    color: "white"
+                                    visible: parent.height > height + 8
+
+                                    Text {
+                                        anchors.centerIn: parent
+                                        text: "󰕾"
+                                        font.pixelSize: parent.width * 0.5
+                                        font.family: "JetBrainsMono Nerd Font Mono"
+                                        color: "#2e383c"
+                                    }
                                 }
                             }
                         }
 
-                        // Brilho
+                        // Brilho pill
                         Rectangle {
                             width: parent.width
                             height: (parent.height - 10) / 2
                             radius: width / 2
                             color: "#e5dfc5"
+                            clip: true
 
-                            // cabeça
-                            Rectangle {
-                                anchors {
-                                    top: parent.top
-                                    horizontalCenter: parent.horizontalCenter
-                                    topMargin: -width / 2
-                                }
-                                width: parent.width
-                                height: parent.width
-                                radius: width / 2
-                                color: "white"
-
-                                Text {
-                                    anchors.centerIn: parent
-                                    text: "󰃞"
-                                    font.pixelSize: parent.width * 0.5
-                                    font.family: "JetBrainsMono Nerd Font Mono"
-                                    color: "#2e383c"
-                                }
-                            }
-
-                            // barra interna
                             Rectangle {
                                 anchors {
                                     bottom: parent.bottom
@@ -208,12 +213,33 @@ ShellRoot {
                                     bottomMargin: 3
                                 }
                                 width: parent.width - 6
-                                height: (parent.height - 6) * 0.5
+                                height: (parent.height - 6) * root.brightness
                                 radius: width / 2
                                 color: "#2e383c"
 
                                 Behavior on height {
-                                    NumberAnimation { duration: 150; easing.type: Easing.OutCubic }
+                                    NumberAnimation { duration: 80; easing.type: Easing.OutCubic }
+                                }
+
+                                Rectangle {
+                                    anchors {
+                                        top: parent.top
+                                        horizontalCenter: parent.horizontalCenter
+                                        topMargin: 4
+                                    }
+                                    width: parent.width - 6
+                                    height: width
+                                    radius: width / 2
+                                    color: "white"
+                                    visible: parent.height > height + 8
+
+                                    Text {
+                                        anchors.centerIn: parent
+                                        text: "󰃞"
+                                        font.pixelSize: parent.width * 0.5
+                                        font.family: "JetBrainsMono Nerd Font Mono"
+                                        color: "#2e383c"
+                                    }
                                 }
                             }
                         }
