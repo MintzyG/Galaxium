@@ -242,6 +242,8 @@ ShellRoot {
                             clip: true
 
                             WheelHandler {
+                                acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
+                                blocking: false
                                 onWheel: event => {
                                     var delta = event.angleDelta.y / 1200.0
                                     var newVol = Math.max(0.0, Math.min(1.5, panel.volume + delta))
@@ -319,6 +321,8 @@ ShellRoot {
                             clip: true
 
                             WheelHandler {
+                                acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
+                                blocking: false
                                 onWheel: event => {
                                     var delta = event.angleDelta.y / 1200.0
                                     var newBri = Math.max(0.0, Math.min(1.0, root.brightness + delta))
