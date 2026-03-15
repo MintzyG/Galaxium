@@ -1,6 +1,12 @@
+{ pkgs, ... }:
 {
   programs.go = {
     enable = true;
-    env.GOPATH = ".config/go";
+    env.GOPATH = "/home/sophia/.config/go";
   };
+  home.packages = with pkgs; [
+    jetbrains.goland
+    sqlc
+    go-swag
+  ];
 }

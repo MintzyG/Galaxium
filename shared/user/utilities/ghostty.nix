@@ -5,8 +5,7 @@
     enableFishIntegration = true;
 
     settings = {
-      background-opacity = 0.6;
-      background-blur-radius = 10;
+      background-opacity = 1.0;
       scrollback-limit = 20000;
     };
   };

@@ -4,7 +4,7 @@
     settings = {
       default_session = {
         command = "start-hyprland";
-        user = "sophia";
+        user = "greeter";
       };
     };
   };
@@ -19,7 +19,6 @@
     hyprland
     fish
     bash
-    startxfce4
   '';
 
   users.users.sophia = {

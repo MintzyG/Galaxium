@@ -5,7 +5,6 @@
     ../../shared/system/battery.nix
     ../../shared/system/bluetooth.nix
     ../../shared/system/boot.nix
-    ../../shared/system/dm.nix
     ../../shared/system/docker.nix
     ../../shared/system/fonts.nix
     ../../shared/system/locale.nix
@@ -31,8 +30,11 @@
     NH_FLAKE = "${config.users.users.sophia.home}/.config/galaxium";
   };
 
-  programs.hyprland.enable = true;
-  programs.fish.enable = true;
+  programs = {
+    nix-ld.enable = true;
+    hyprland.enable = true;
+    fish.enable = true;
+  };
   users.users.sophia = {
     isNormalUser = true;
     description = "Sophia";
