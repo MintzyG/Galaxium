@@ -224,7 +224,7 @@ in
         "$mainMod, mouse_down, layoutmsg, move +col"
         "$mainMod, mouse_up, layoutmsg, move -col"
 
-        "$mainMod, F1, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+        "ALT, F1, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
       ];
 
       binde = [

@@ -9,9 +9,32 @@ ShellRoot {
 
     property real brightness: 0.5
     property real brightnessMax: 1.0
+    property bool volumeChanged: false
+    property bool brightnessChanged: false
 
     PwObjectTracker {
         objects: [ Pipewire.defaultAudioSink ]
+    }
+
+    Connections {
+        target: Pipewire.defaultAudioSink ? Pipewire.defaultAudioSink.audio : null
+        function onVolumeChanged() {
+            root.volumeChanged = true
+            autoHideTimer.restart()
+        }
+        function onMutedChanged() {
+            root.volumeChanged = true
+            autoHideTimer.restart()
+        }
+    }
+
+    Timer {
+        id: autoHideTimer
+        interval: 1000
+        onTriggered: {
+            root.volumeChanged = false
+            root.brightnessChanged = false
+        }
     }
 
     Process {
@@ -20,11 +43,11 @@ ShellRoot {
         running: true
         stdout: SplitParser {
             onRead: data => {
-                if (data) {
-                    root.brightnessMax = parseInt(data) || 1
-                    procGet.running = true
-                }
+                if (data.trim()) root.brightnessMax = parseInt(data) || 1
             }
+        }
+        onRunningChanged: {
+            if (!running) pollTimer.start()
         }
     }
 
@@ -33,15 +56,25 @@ ShellRoot {
         command: ["brightnessctl", "get"]
         stdout: SplitParser {
             onRead: data => {
-                if (data) root.brightness = parseInt(data) / root.brightnessMax
+                if (data.trim()) {
+                    var newVal = parseInt(data) / root.brightnessMax
+                    if (Math.abs(newVal - root.brightness) > 0.005) {
+                        root.brightnessChanged = true
+                        autoHideTimer.restart()
+                    }
+                    root.brightness = newVal
+                }
             }
+        }
+        onRunningChanged: {
+            if (!running) pollTimer.scheduleRestart()
         }
     }
 
     Timer {
+        id: pollTimer
         interval: 100
-        running: true
-        repeat: true
+        function scheduleRestart() { restart() }
         onTriggered: procGet.running = true
     }
 
@@ -64,11 +97,16 @@ ShellRoot {
             exclusiveZone: -1
 
             property bool hovered: false
+            property bool shouldShow: hovered || root.volumeChanged || root.brightnessChanged
             property real barHeight: screen.height / 2
             property real cornerSize: 30
             property real bodyRadius: 30
             property string bgColor: "#f3ead3"
-            property real volume: Pipewire.defaultAudioSink?.audio?.volume ?? 0.5
+            property real volume: Pipewire.defaultAudioSink ? Pipewire.defaultAudioSink.audio.volume : 0.5
+            property bool muted: Pipewire.defaultAudioSink ? Pipewire.defaultAudioSink.audio.muted : false
+            property real volumeClamped: Math.min(panel.volume, 1.0)
+            property bool volumeOver: panel.volume > 1.0
+            property real overRatio: Math.min((panel.volume - 1.0) / 0.5, 1.0)
 
             MouseArea {
                 anchors.fill: parent
@@ -85,12 +123,12 @@ ShellRoot {
                     right: parent.right
                 }
 
-                opacity: panel.hovered ? 1.0 : 0.0
+                opacity: panel.shouldShow ? 1.0 : 0.0
                 Behavior on opacity {
                     NumberAnimation { duration: 200; easing.type: Easing.OutCubic }
                 }
                 transform: Translate {
-                    x: panel.hovered ? 0 : 60
+                    x: panel.shouldShow ? 0 : 60
                     Behavior on x {
                         NumberAnimation { duration: 200; easing.type: Easing.OutCubic }
                     }
@@ -167,12 +205,15 @@ ShellRoot {
                                     bottomMargin: 3
                                 }
                                 width: parent.width - 6
-                                height: (parent.height - 6) * panel.volume
+                                height: (parent.height - 6) * panel.volumeClamped
                                 radius: width / 2
-                                color: "#2e383c"
+                                color: panel.muted ? "#f85552" : "#2e383c"
 
                                 Behavior on height {
                                     NumberAnimation { duration: 80; easing.type: Easing.OutCubic }
+                                }
+                                Behavior on color {
+                                    ColorAnimation { duration: 100 }
                                 }
 
                                 Rectangle {
@@ -184,12 +225,16 @@ ShellRoot {
                                     width: parent.width - 6
                                     height: width
                                     radius: width / 2
-                                    color: "white"
+                                    color: Qt.rgba(1, 1 - panel.overRatio * 0.8, 1 - panel.overRatio * 0.8, 1)
                                     visible: parent.height > height + 8
+
+                                    Behavior on color {
+                                        ColorAnimation { duration: 80 }
+                                    }
 
                                     Text {
                                         anchors.centerIn: parent
-                                        text: "󰕾"
+                                        text: panel.muted ? "󰖁" : "󰕾"
                                         font.pixelSize: parent.width * 0.5
                                         font.family: "JetBrainsMono Nerd Font Mono"
                                         color: "#2e383c"
