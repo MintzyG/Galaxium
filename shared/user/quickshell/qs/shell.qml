@@ -71,6 +71,21 @@ ShellRoot {
         }
     }
 
+    Process {
+        id: procSetBrightness
+        property real targetRatio: 0.5
+        command: ["brightnessctl", "set", String(Math.round(targetRatio * root.brightnessMax))]
+        onRunningChanged: {
+            if (!running) procGet.running = true
+        }
+    }
+
+    Process {
+        id: procSetVolume
+        property real targetVolume: 0.5
+        command: ["wpctl", "set-volume", "@DEFAULT_AUDIO_SINK@", String(Math.min(targetVolume, 1.5).toFixed(2))]
+    }
+
     Timer {
         id: pollTimer
         interval: 100
@@ -108,14 +123,29 @@ ShellRoot {
             property bool volumeOver: panel.volume > 1.0
             property real overRatio: Math.min((panel.volume - 1.0) / 0.5, 1.0)
 
-            MouseArea {
-                anchors.fill: parent
-                hoverEnabled: true
-                onEntered: panel.hovered = true
-                onExited: panel.hovered = false
+            // faixa invisível sempre presente na borda
+            Item {
+                anchors {
+                    right: parent.right
+                    top: parent.top
+                    bottom: parent.bottom
+                }
+                width: 4
+
+                HoverHandler {
+                    onHoveredChanged: {
+                        if (hovered) {
+                            panel.hovered = true
+                            autoHideTimer.stop()
+                        } else if (!containerHover.hovered) {
+                            panel.hovered = false
+                        }
+                    }
+                }
             }
 
             Item {
+                id: container
                 width: 60
                 height: panel.barHeight + panel.cornerSize * 2
                 anchors {
@@ -131,6 +161,18 @@ ShellRoot {
                     x: panel.shouldShow ? 0 : 60
                     Behavior on x {
                         NumberAnimation { duration: 200; easing.type: Easing.OutCubic }
+                    }
+                }
+
+                HoverHandler {
+                    id: containerHover
+                    onHoveredChanged: {
+                        if (hovered) {
+                            panel.hovered = true
+                            autoHideTimer.stop()
+                        } else {
+                            panel.hovered = false
+                        }
                     }
                 }
 
@@ -192,11 +234,35 @@ ShellRoot {
 
                         // Volume pill
                         Rectangle {
+                            id: volPill
                             width: parent.width
                             height: (parent.height - 10) / 2
                             radius: width / 2
                             color: "#e5dfc5"
                             clip: true
+
+                            WheelHandler {
+                                onWheel: event => {
+                                    var delta = event.angleDelta.y / 1200.0
+                                    var newVol = Math.max(0.0, Math.min(1.5, panel.volume + delta))
+                                    procSetVolume.targetVolume = newVol
+                                    procSetVolume.running = true
+                                    root.volumeChanged = true
+                                    autoHideTimer.restart()
+                                }
+                            }
+
+                            DragHandler {
+                                target: null
+                                onTranslationChanged: {
+                                    var ratio = 1.0 - (centroid.position.y / volPill.height)
+                                    ratio = Math.max(0.0, Math.min(1.5, ratio))
+                                    procSetVolume.targetVolume = ratio
+                                    procSetVolume.running = true
+                                    root.volumeChanged = true
+                                    autoHideTimer.restart()
+                                }
+                            }
 
                             Rectangle {
                                 anchors {
@@ -220,13 +286,13 @@ ShellRoot {
                                     anchors {
                                         top: parent.top
                                         horizontalCenter: parent.horizontalCenter
-                                        topMargin: 4
+                                        topMargin: 3
                                     }
                                     width: parent.width - 6
                                     height: width
                                     radius: width / 2
                                     color: Qt.rgba(1, 1 - panel.overRatio * 0.8, 1 - panel.overRatio * 0.8, 1)
-                                    visible: parent.height > height + 8
+                                    visible: parent.height > height + 6
 
                                     Behavior on color {
                                         ColorAnimation { duration: 80 }
@@ -245,11 +311,35 @@ ShellRoot {
 
                         // Brilho pill
                         Rectangle {
+                            id: briPill
                             width: parent.width
                             height: (parent.height - 10) / 2
                             radius: width / 2
                             color: "#e5dfc5"
                             clip: true
+
+                            WheelHandler {
+                                onWheel: event => {
+                                    var delta = event.angleDelta.y / 1200.0
+                                    var newBri = Math.max(0.0, Math.min(1.0, root.brightness + delta))
+                                    procSetBrightness.targetRatio = newBri
+                                    procSetBrightness.running = true
+                                    root.brightnessChanged = true
+                                    autoHideTimer.restart()
+                                }
+                            }
+
+                            DragHandler {
+                                target: null
+                                onTranslationChanged: {
+                                    var ratio = 1.0 - (centroid.position.y / briPill.height)
+                                    ratio = Math.max(0.0, Math.min(1.0, ratio))
+                                    procSetBrightness.targetRatio = ratio
+                                    procSetBrightness.running = true
+                                    root.brightnessChanged = true
+                                    autoHideTimer.restart()
+                                }
+                            }
 
                             Rectangle {
                                 anchors {
@@ -270,13 +360,13 @@ ShellRoot {
                                     anchors {
                                         top: parent.top
                                         horizontalCenter: parent.horizontalCenter
-                                        topMargin: 4
+                                        topMargin: 3
                                     }
                                     width: parent.width - 6
                                     height: width
                                     radius: width / 2
                                     color: "white"
-                                    visible: parent.height > height + 8
+                                    visible: parent.height > height + 6
 
                                     Text {
                                         anchors.centerIn: parent
