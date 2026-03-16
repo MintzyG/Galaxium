@@ -167,7 +167,7 @@ ShellRoot {
                         Region {
                             x: win.width - win.edge - 60
                             y: (win.height - sidebar.barHeight - sidebar.cornerSize * 2) / 2
-                            width: 60
+                            width: sidebar.shouldShow ? 60 : win.edge
                             height: sidebar.barHeight + sidebar.cornerSize * 2
                             intersection: Intersection.Subtract
                         }
@@ -179,7 +179,6 @@ ShellRoot {
                     edgeSize: win.edge
                 }
 
-                // ativa hover ao encostar na borda direita — só metade da tela centralizada
                 Item {
                     anchors {
                         right: parent.right
@@ -205,7 +204,6 @@ ShellRoot {
                         margins: win.edge
                     }
 
-                    // desativa hover ao sair da área do OSD
                     Item {
                         anchors {
                             right: parent.right

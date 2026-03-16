@@ -12,7 +12,6 @@
     ../../shared/user/quickshell/quickshell.nix
     ../../shared/user/shell/fish.nix
     ../../shared/user/services/swww.nix
-    ../../shared/user/services/swaync.nix
     ../../shared/user/shell/starship.nix
     ../../shared/user/utilities/btop.nix
     ../../shared/user/utilities/eza.nix
