@@ -1,0 +1,11 @@
+shared/user/quickshell/
+├── qs
+│   ├── components
+│   │   ├── NotificationManager.qml
+│   │   ├── NotificationPopup.qml
+│   │   ├── OsdSidebar.qml
+│   │   └── ScreenEdge.qml
+│   └── shell.qml
+└── quickshell.nix
+
+3 directories, 6 files

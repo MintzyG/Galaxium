@@ -103,6 +103,10 @@ ShellRoot {
             id: scope
             required property var modelData
 
+            NotificationManager {
+                screen: scope.modelData  // passa a screen pro manager
+            }
+
             PanelWindow {
                 screen: scope.modelData
                 anchors.top: true
