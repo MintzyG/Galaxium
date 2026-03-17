@@ -48,6 +48,7 @@ Scope {
             id: focusApp
             property string appClass: ""
             command: ["hyprctl", "dispatch", "focuswindow", "class:^(" + (appClass ?? "") + ")$"]
+            onRunningChanged: console.log("focusApp running:", running, "| appClass:", appClass)
         }
 
         Repeater {
@@ -69,6 +70,12 @@ Scope {
 
                 readonly property bool hasProfilePic: notif.image !== ""
                 readonly property string resolvedIcon: notif.appIcon !== "" ? notif.appIcon : notif.desktopEntry
+                readonly property string notifDesktopEntry: notif.desktopEntry ?? ""
+                readonly property string notifAppName: notif.appName ?? ""
+                readonly property string notifSummary: notif.summary ?? ""
+                readonly property string notifBody: notif.body ?? ""
+                readonly property string notifImage: notif.image ?? ""
+                readonly property string notifAppIcon: notif.appIcon ?? ""
 
                 y: entered ? 16 + index * 96 : -(80 + 16)
 
@@ -153,8 +160,11 @@ Scope {
                 }
 
                 TapHandler {
+                    id: pillTap
                     onTapped: {
-                        focusApp.appClass = notif.desktopEntry ?? ""
+                        console.log("pill tapped | desktopEntry:", notifDesktopEntry)
+                        focusApp.appClass = notifDesktopEntry
+                        focusApp.running = false
                         focusApp.running = true
                         dismiss()
                     }
@@ -197,7 +207,7 @@ Scope {
 
                         Text {
                             width: parent.width
-                            text: notif.summary ?? ""
+                            text: notifSummary
                             font.pixelSize: 12
                             font.bold: true
                             color: "#2e383c"
@@ -206,7 +216,7 @@ Scope {
 
                         Text {
                             width: parent.width
-                            text: notif.body ?? ""
+                            text: notifBody
                             font.pixelSize: 11
                             color: "#4a5568"
                             elide: Text.ElideRight
@@ -231,7 +241,7 @@ Scope {
                         anchors.centerIn: parent
                         width: parent.width * 0.75
                         height: width
-                        source: hasProfilePic ? notif.image : ""
+                        source: hasProfilePic ? notifImage : ""
                         visible: !itemHover.hovered && hasProfilePic && status === Image.Ready
                         fillMode: Image.PreserveAspectCrop
                         layer.enabled: true
@@ -256,7 +266,7 @@ Scope {
 
                     Text {
                         anchors.centerIn: parent
-                        text: notif.appName ? notif.appName.charAt(0).toUpperCase() : "?"
+                        text: notifAppName !== "" ? notifAppName.charAt(0).toUpperCase() : "?"
                         font.pixelSize: 28
                         font.bold: true
                         color: "#2e383c"
@@ -288,7 +298,11 @@ Scope {
                         }
 
                         TapHandler {
-                            onTapped: dismiss()
+                            grabPermissions: TapHandler.CanTakeOverFromAnything
+                            onTapped: {
+                                console.log("dismiss tapped")
+                                dismiss()
+                            }
                         }
                     }
                 }
