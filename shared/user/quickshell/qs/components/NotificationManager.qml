@@ -1,5 +1,7 @@
 import QtQuick
+import Qt5Compat.GraphicalEffects
 import Quickshell
+import Quickshell.Io
 import Quickshell.Services.Notifications
 
 Scope {
@@ -9,8 +11,13 @@ Scope {
 
     NotificationServer {
         id: server
+        imageSupported: true
         onNotification: notif => {
-            notifModel.insert(0, { "notif": notif })
+            console.log("appName:", notif.appName, "| appIcon:", notif.appIcon, "| desktopEntry:", notif.desktopEntry, "| image:", notif.image, "| summary:", notif.summary, "| urgency:", notif.urgency, "| expireTimeout:", notif.expireTimeout, "| hints:", JSON.stringify(notif.hints))
+            if (notifModel.count >= 5) {
+                notifModel.setProperty(notifModel.count - 1, "forceDismiss", true)
+            }
+            notifModel.insert(0, { "notif": notif, "forceDismiss": false })
         }
     }
 
@@ -37,12 +44,19 @@ Scope {
         property int hoveredCount: 0
         property bool anyHovered: hoveredCount > 0
 
+        Process {
+            id: focusApp
+            property string appClass: ""
+            command: ["hyprctl", "dispatch", "focuswindow", "class:^(" + (appClass ?? "") + ")$"]
+        }
+
         Repeater {
             model: notifModel
 
             delegate: Item {
                 required property int index
                 required property var notif
+                required property bool forceDismiss
 
                 width: 300
                 height: 80
@@ -52,6 +66,9 @@ Scope {
                 property bool dismissed: false
                 property real elapsed: 0
                 property real totalDuration: 5000
+
+                readonly property bool hasProfilePic: notif.image !== ""
+                readonly property string resolvedIcon: notif.appIcon !== "" ? notif.appIcon : notif.desktopEntry
 
                 y: entered ? 16 + index * 96 : -(80 + 16)
 
@@ -67,6 +84,10 @@ Scope {
                     }
                 }
 
+                onForceDismissChanged: {
+                    if (forceDismiss) dismiss()
+                }
+
                 function dismiss() {
                     if (dismissed) return
                     dismissed = true
@@ -79,7 +100,6 @@ Scope {
                     if (dismissed) removeTimer.start()
                 }
 
-                // tick a cada 100ms pra acumular elapsed
                 Timer {
                     id: tickTimer
                     interval: 100
@@ -91,7 +111,6 @@ Scope {
                     }
                 }
 
-                // quando o hover solta, reinicia o dismissTimer com o tempo restante
                 Connections {
                     target: notifWindow
                     function onAnyHoveredChanged() {
@@ -133,6 +152,14 @@ Scope {
                     }
                 }
 
+                TapHandler {
+                    onTapped: {
+                        focusApp.appClass = notif.desktopEntry ?? ""
+                        focusApp.running = true
+                        dismiss()
+                    }
+                }
+
                 Rectangle {
                     anchors.fill: parent
                     radius: 12
@@ -142,6 +169,50 @@ Scope {
                         anchors { left: parent.left; top: parent.top; bottom: parent.bottom }
                         width: parent.radius
                         color: "#f3ead3"
+                    }
+                }
+
+                Rectangle {
+                    id: contentArea
+                    anchors {
+                        left: parent.left
+                        top: parent.top
+                        bottom: parent.bottom
+                        right: parent.right
+                        leftMargin: 40
+                        topMargin: 6
+                        bottomMargin: 6
+                        rightMargin: 6
+                    }
+                    radius: 8
+                    color: "#ede6cf"
+
+                    Column {
+                        anchors {
+                            fill: parent
+                            margins: 8
+                        }
+                        spacing: 2
+                        clip: true
+
+                        Text {
+                            width: parent.width
+                            text: notif.summary ?? ""
+                            font.pixelSize: 12
+                            font.bold: true
+                            color: "#2e383c"
+                            elide: Text.ElideRight
+                        }
+
+                        Text {
+                            width: parent.width
+                            text: notif.body ?? ""
+                            font.pixelSize: 11
+                            color: "#4a5568"
+                            elide: Text.ElideRight
+                            maximumLineCount: 2
+                            wrapMode: Text.WordWrap
+                        }
                     }
                 }
 
@@ -156,12 +227,31 @@ Scope {
                     anchors.leftMargin: -(height / 2)
 
                     Image {
+                        id: profilePic
+                        anchors.centerIn: parent
+                        width: parent.width * 0.75
+                        height: width
+                        source: hasProfilePic ? notif.image : ""
+                        visible: !itemHover.hovered && hasProfilePic && status === Image.Ready
+                        fillMode: Image.PreserveAspectCrop
+                        layer.enabled: true
+                        layer.effect: OpacityMask {
+                            maskSource: Rectangle {
+                                width: profilePic.width
+                                height: profilePic.height
+                                radius: width / 2
+                                visible: false
+                            }
+                        }
+                    }
+
+                    Image {
                         id: appIcon
                         anchors.centerIn: parent
                         width: parent.width * 0.5
                         height: width
-                        source: notif.appIcon ? "image://icon/" + notif.appIcon : ""
-                        visible: !itemHover.hovered && status === Image.Ready
+                        source: !hasProfilePic && resolvedIcon !== "" ? "image://icon/" + resolvedIcon : ""
+                        visible: !itemHover.hovered && !hasProfilePic && status === Image.Ready
                     }
 
                     Text {
@@ -170,7 +260,7 @@ Scope {
                         font.pixelSize: 28
                         font.bold: true
                         color: "#2e383c"
-                        visible: !itemHover.hovered && !appIcon.visible
+                        visible: !itemHover.hovered && !hasProfilePic && !appIcon.visible
                     }
 
                     Rectangle {
