@@ -47,8 +47,48 @@ Scope {
         Process {
             id: focusApp
             property string appClass: ""
-            command: ["hyprctl", "dispatch", "focuswindow", "class:^(" + (appClass ?? "") + ")$"]
-            onRunningChanged: console.log("focusApp running:", running, "| appClass:", appClass)
+            command: ["hyprctl", "clients", "-j"]
+            stdout: SplitParser {
+                splitMarker: ""
+                onRead: data => {
+                    try {
+                        var clients = JSON.parse(data)
+                        for (var i = 0; i < clients.length; i++) {
+                            var c = clients[i]
+                            if (c["class"].includes(focusApp.appClass)) {
+                                var ws = c["workspace"]["name"]
+                                console.log("found window | class:", c["class"], "| workspace:", ws)
+                                if (ws.startsWith("special:")) {
+                                    focusSpecial.workspace = ws.replace("special:", "")
+                                    focusSpecial.running = false
+                                    focusSpecial.running = true
+                                } else {
+                                    focusWindow.appClass = focusApp.appClass
+                                    focusWindow.running = false
+                                    focusWindow.running = true
+                                }
+                                break
+                            }
+                        }
+                    } catch(e) {
+                        console.log("focusApp parse error:", e)
+                    }
+                }
+            }
+        }
+
+        Process {
+            id: focusWindow
+            property string appClass: ""
+            command: ["hyprctl", "dispatch", "focuswindow", "class:^(" + appClass + ")$"]
+            onRunningChanged: console.log("focusWindow running:", running, "| appClass:", appClass)
+        }
+
+        Process {
+            id: focusSpecial
+            property string workspace: ""
+            command: ["hyprctl", "dispatch", "togglespecialworkspace", workspace]
+            onRunningChanged: console.log("focusSpecial running:", running, "| workspace:", workspace)
         }
 
         Repeater {
@@ -75,7 +115,6 @@ Scope {
                 readonly property string notifSummary: notif.summary ?? ""
                 readonly property string notifBody: notif.body ?? ""
                 readonly property string notifImage: notif.image ?? ""
-                readonly property string notifAppIcon: notif.appIcon ?? ""
 
                 y: entered ? 16 + index * 96 : -(80 + 16)
 
